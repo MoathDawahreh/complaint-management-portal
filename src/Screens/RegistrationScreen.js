@@ -6,7 +6,7 @@ const RegistrationScreen = (props) => {
 
     const [userName,setUserName] = useState('')
     const [passowrd,setPassowrd] = useState('')
-    const [admin,setAdmin] = useState(true)
+    const [admin,setAdmin] = useState(false)
     
      const [toggle, settoggle] = useState(true)
     //  props.refContainer.current = admin
@@ -46,7 +46,14 @@ const RegistrationScreen = (props) => {
             alert("Please Enter the email and the password!!")
             return
         }
-        console.log("not ready yet lol")
+
+        const logindata = {
+            username: userName,
+            pwd: passowrd,
+ 
+        }
+         props.logIn(logindata)
+
         setUserName('')
         setPassowrd('')
         setAdmin(false) 
