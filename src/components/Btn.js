@@ -2,9 +2,8 @@
 const Button = ( props ) => {
 
     return (
-
         <button
-        onClick={props.onClick}
+        onClick={props.onSubmit}
          className='btn'
       >
         {props.text}

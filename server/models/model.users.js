@@ -28,7 +28,7 @@ const Users = mongoose.model('Users', UsersSchema);
 exports.SaveUser = function(username,pwd,isAdmin,callback){
 		
 
-		const User = new Users({username: username, pwd:pwd, isAdmin:isAdmin})
+		const User = new Users({username: username, pwd: pwd, isAdmin:isAdmin})
 		console.log("User in mongoose moudle scheeme",User)
 		User.save()
 		.then(callback).catch((err) =>{ console.log(err) })

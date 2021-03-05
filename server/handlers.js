@@ -33,10 +33,10 @@ module.exports = {
    
 	Adduser: function(req, res){
 
-        // console.log("boddy",req.body.isAdmin)
+        console.log("boddy",req.body)
        var username = req.body.username;
        var pwd = req.body.pwd;
-       var isAdmin = req.body.isAdmin;
+       var isAdmin = req.body.admin;
 
         Users.SaveUser(username,pwd,isAdmin,function(result){
 
