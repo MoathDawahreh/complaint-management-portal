@@ -11,7 +11,7 @@ const AddComplaint = ({onAdd}) => {
             return
         }
 
-        // onAdd({text,day,reminder})
+        onAdd({text})
         setText('')
  
     }
