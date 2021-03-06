@@ -41,6 +41,8 @@ const AdminScreen = ({Logout,isAdmin}) => {
       
           const data = await res.json()
           console.log("res dataaa",data)
+
+          alert("The complaint Status has been updated!!")
             
    
         }catch (error) {
