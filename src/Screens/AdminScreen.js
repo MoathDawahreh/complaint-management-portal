@@ -2,7 +2,7 @@ import React from 'react'
 import {useState,useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
-const AdminScreen = ({Logout}) => {
+const AdminScreen = ({Logout,isAdmin}) => {
     const [complaints, setComplaint] = useState([
     
       ])
@@ -33,7 +33,7 @@ const AdminScreen = ({Logout}) => {
          className='logout'>
         Logout
       </button>
-            <Complaints complaints={complaints}/>
+            <Complaints complaints={complaints} isAdmin={isAdmin}/>
         </div>
         
         

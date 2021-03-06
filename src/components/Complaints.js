@@ -1,11 +1,11 @@
 import Complaint from './Complaint'
 
-const Complaints = ({ complaints }) => {
+const Complaints = ({ complaints,isAdmin }) => {
     return (
         <>
  
          {complaints.map((complaint) => (
-          <Complaint key={complaint._id} complaint={complaint} />
+          <Complaint key={complaint._id} complaint={complaint} isAdmin={isAdmin} />
         ))}
       </>
     )

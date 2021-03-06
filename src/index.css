@@ -67,6 +67,7 @@ body {
 }
 
 .compliment {
+  flex: 3;
   background: #f1eaf1;
   margin: 5px;
   padding: 10px 20px;

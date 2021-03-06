@@ -3,8 +3,7 @@ import {useState,useEffect,React,useRef } from 'react'
 import RegistrationScreen from './Screens/RegistrationScreen'
 import UserScreen from './Screens/UserScreen'
 import AdminScreen from './Screens/AdminScreen'
-// import Complaints from './components/Complaints'
-import axios from 'axios';
+ import axios from 'axios';
 
 function App() {
 
@@ -79,7 +78,7 @@ const logIn = (logindata) =>{
     ) : isAdmin? (
       <div className="container">
 
-         <AdminScreen Logout={Logout} />
+         <AdminScreen Logout={Logout} isAdmin={isAdmin} />
          </div>
     ) :(
 
