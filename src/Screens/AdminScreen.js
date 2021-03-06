@@ -2,7 +2,7 @@ import React from 'react'
 import {useState,useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
-const AdminScreen = () => {
+const AdminScreen = ({Logout}) => {
     const [complaints, setComplaint] = useState([
     
       ])
@@ -28,6 +28,11 @@ const AdminScreen = () => {
     return (
 
         <div><h1> Admin Screen </h1> 
+          <button
+        onClick={Logout}
+         className='logout'>
+        Logout
+      </button>
             <Complaints complaints={complaints}/>
         </div>
         

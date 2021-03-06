@@ -27,13 +27,7 @@ function App() {
 
 }
 
-useEffect(() => {
-
-  console.log("appjs effect",logedUser)
-    
-
-}, [])
-
+ 
 
 
 const logIn = (logindata) =>{
@@ -59,6 +53,13 @@ const logIn = (logindata) =>{
 
 }
 
+ const Logout = ()=>{
+  //  alert("loougout")
+   setisSignedIn(false)
+   setIsAdmin(false)
+
+ }
+
   
    return (
      
@@ -70,13 +71,15 @@ const logIn = (logindata) =>{
 
 
     isSignedIn && !isAdmin ? (
+      
       <div className="container">
-         <UserScreen logedUser={logedUser} />
+         <UserScreen logedUser={logedUser} Logout={Logout} />
+       
          </div>
     ) : isAdmin? (
       <div className="container">
 
-         <AdminScreen />
+         <AdminScreen Logout={Logout} />
          </div>
     ) :(
 

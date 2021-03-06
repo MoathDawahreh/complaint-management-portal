@@ -3,7 +3,7 @@ import {useState,useEffect } from 'react'
 import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 import Header from '../components/Header'
-const UserScreen = ({logedUser}) => {
+const UserScreen = ({logedUser,Logout}) => {
 
   console.log("firstloggg",logedUser)
 
@@ -69,6 +69,9 @@ const UserScreen = ({logedUser}) => {
 
       }
 
+
+      
+
     
 
 
@@ -76,8 +79,12 @@ const UserScreen = ({logedUser}) => {
     return (
 
         <><h1> User Screen </h1>
-          <Header ShowComplaints ={ShowComplaints}/>
-
+          {/* <Header ShowComplaints ={ShowComplaints}/> */}
+          <button
+        onClick={Logout}
+         className='logout'>
+        Logout
+      </button>
         <AddComplaint onAdd = {AddAcomplaint} />
         <Complaints complaints={complaints} />
          </>
