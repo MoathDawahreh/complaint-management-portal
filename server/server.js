@@ -26,9 +26,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/api/add-user', Handlers.Adduser)
-app.get('/AllUsers', Handlers.GetUsers)
- 
+app.get('/api/AllUsers', Handlers.GetUsers)
+app.post('/api/add-complaint', Handlers.AddComplaint)
 app.post('/api/login', Handlers.login)
+app.get('/api/GetAllComplaints', Handlers.GetComplaints)
 
 
 // app.get('/add-user', (req, res) => {

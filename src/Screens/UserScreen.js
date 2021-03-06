@@ -6,19 +6,19 @@ const UserScreen = () => {
 
     const [complaints, setComplaint] = useState([
         {
-          id: 1,
-          text: "Course expried",
+          _id: 1,
+          complaint: "Course expried",
           status: "done"
         },
         {
-          id: 2,
-          text: "need some help",
+          _id: 2,
+          complaint: "need some help",
           status: "done"
         },
           {
-          id: 3,
+            _id: 3,
           status: "Pending",
-          text: "walk the dog"
+          complaint: "walk the dog"
         }
       ])
 

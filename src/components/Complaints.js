@@ -1,11 +1,11 @@
 import Complaint from './Complaint'
 
-const Complaints = ({ complaints, deleteTask,onToggle }) => {
+const Complaints = ({ complaints }) => {
     return (
         <>
  
          {complaints.map((complaint) => (
-          <Complaint key={complaint.id} complaint={complaint} />
+          <Complaint key={complaint._id} complaint={complaint} />
         ))}
       </>
     )

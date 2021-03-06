@@ -1,6 +1,5 @@
 const Users = require('./models/model.users')
-
-
+const Complaints = require('./models/model.complaints')
 
 
 
@@ -33,11 +32,11 @@ module.exports = {
    
 	Adduser: function(req, res){
 
-        console.log("boddy",req.body)
+        console.log("boddy the ct", req.body)
        var username = req.body.username;
        var pwd = req.body.pwd;
-       var isAdmin = req.body.admin;
-
+       var isAdmin = req.body.isAdmin;
+  
         Users.SaveUser(username,pwd,isAdmin,function(result){
 
             res.send(result)
@@ -50,6 +49,27 @@ module.exports = {
     GetUsers : function(req,res){
 
         Users.getAllusers(function (results){
+            res.send(results)
+            console.log(results)
+        })
+    },
+
+
+    AddComplaint : function(req,res){
+
+        var complaint = req.body.complaint;
+        var status = req.body.status;
+        var userId = req.body.userId;
+
+        Complaints.SaveComplaint(complaint,status,userId,function (results){
+            res.send(results)
+            console.log("Addd complaint handler results",results)
+        })
+    },
+
+    GetComplaints : function(req,res){
+
+        Complaints.getAllComplaints(function (results){
             res.send(results)
             console.log(results)
         })

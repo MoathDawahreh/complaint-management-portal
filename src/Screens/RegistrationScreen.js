@@ -7,7 +7,8 @@ const RegistrationScreen = (props) => {
     const [userName,setUserName] = useState('')
     const [passowrd,setPassowrd] = useState('')
     const [admin,setAdmin] = useState(false)
-    
+    const [Log,setLog] = useState(true)
+
      const [toggle, settoggle] = useState(true)
     //  props.refContainer.current = admin
 
@@ -81,19 +82,24 @@ const RegistrationScreen = (props) => {
                 <input type='text' placeholder='passowrd' value={passowrd} onChange={ (e)=> setPassowrd(e.target.value)} /> 
 
             </div>
-            <div className='form-control form-control-check'>
+            <div  className='form-control form-control-check' style={{ display: Log ? "none" : "flex" }}  >
                 <label> Is Admin ? </label>
-                <input type='checkbox' checked={admin} value={admin} onChange={ (e)=> setAdmin(e.currentTarget.checked)} /> 
+                <input   type='checkbox' checked={admin} value={admin} onChange={ (e)=> setAdmin(e.currentTarget.checked)}  /> 
 
             </div>
 
             {/* <input className='btn' type='submit' value='Register'/> */}
            {/* <label> Dont have account? </label>  */}
 
-            <Btn  text ={'Login'}  onSubmit={LogInHandler}/>
+            <div style={{ display: Log ? "block" : "none" }} >
+            <Btn  text ={'Login'}  onSubmit={LogInHandler}/> </div>
 
-            <Btn  text ={'Register'}  onSubmit={RegisterHandler}/>
+            <div  style={{ display: Log ? "none" : "block" }}>
+            <Btn  text ={'Register'}  onSubmit={RegisterHandler} /> </div>
 
+            <div>
+             <a href="#" onClick={() =>  setLog(!Log) }>   {Log ? "Register" :"LogIn"}  </a>
+            </div>
 
         </form>
     </>        

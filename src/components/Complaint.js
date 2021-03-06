@@ -8,7 +8,7 @@ const Complaint = ({complaint}) => {
     return (
         <div className="compliment" >
             <h3>
-                {complaint.text}
+                {complaint.complaint}
 
                 <FaTimes
                      style={{ color: 'red', cursor: 'pointer' }}
