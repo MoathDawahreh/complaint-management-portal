@@ -21,7 +21,11 @@ function App() {
     console.log("bing")
 
     axios.post('http://localhost:5000/api/add-user',signupdata)
-    .then(res => console.log(res.data), setisSignedIn(true) )
+    .then((res) => { setisSignedIn(true)
+      setIsAdmin(res.data.isAdmin)
+    }
+     
+    )
   
 
 }
@@ -31,7 +35,6 @@ function App() {
 
 const logIn = (logindata) =>{
 
-  console.log("bing")
 
   axios.post('http://localhost:5000/api/login',logindata)
   .then((res) => {
