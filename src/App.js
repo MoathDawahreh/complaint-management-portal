@@ -9,13 +9,12 @@ import axios from 'axios';
 function App() {
 
 
-
-  
  
   // const refContainer = useRef({});
 
   const [isSignedIn,setisSignedIn] = useState(false)
   const [isAdmin,setIsAdmin] = useState(false)
+  const [logedUser,setlogedUser] = useState({username:"",_id:""})
 
   
   const Register = (signupdata) =>{
@@ -28,6 +27,14 @@ function App() {
 
 }
 
+useEffect(() => {
+
+  console.log("appjs effect",logedUser)
+    
+
+}, [])
+
+
 
 const logIn = (logindata) =>{
 
@@ -37,7 +44,9 @@ const logIn = (logindata) =>{
   .then((res) => {
     
     setIsAdmin(res.data.isAdmin);  setisSignedIn(true)
-    console.log(typeof res.data)
+    // console.log(res.data)
+    setlogedUser({username:res.data.username,_id:res.data._id})
+    // console.log()
     return res.data
   }  )
   .catch((error) => {
@@ -62,7 +71,7 @@ const logIn = (logindata) =>{
 
     isSignedIn && !isAdmin ? (
       <div className="container">
-         <UserScreen/>
+         <UserScreen logedUser={logedUser} />
          </div>
     ) : isAdmin? (
       <div className="container">

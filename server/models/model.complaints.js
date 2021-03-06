@@ -42,3 +42,10 @@ exports.getAllComplaints = function (callback){
 	.then(callback)
 
 }
+
+
+exports.geComplaintsByUserId = function (userId,callback){
+	Complaints.find({userId:userId})
+	.then(callback)
+
+}

@@ -9,8 +9,8 @@ const AdminScreen = () => {
 
       useEffect(() => {
         const getcomplaints = async () => {
-          const tasksFromServer = await fetchcomplaints()
-          setComplaint(tasksFromServer)
+          const fetchedComplaints = await fetchcomplaints()
+          setComplaint(fetchedComplaints)
         }
     
         getcomplaints()

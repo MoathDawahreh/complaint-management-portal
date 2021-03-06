@@ -22,7 +22,8 @@ module.exports = {
 
               res.status(200).send({
                   username: user.username,
-                  isAdmin: user.isAdmin
+                  isAdmin: user.isAdmin,
+                  _id: user._id
                 })
             // res.send(user)
             console.log("git all users function",pwd)
@@ -73,7 +74,19 @@ module.exports = {
             res.send(results)
             console.log(results)
         })
+    },
+
+    GetComplaintsByUser : function(req,res){
+        userId =req.body.userId
+
+        Complaints.geComplaintsByUserId(userId,function (results){
+            res.send(results)
+            console.log(results)
+        })
     }
+
+
+
 
 
 

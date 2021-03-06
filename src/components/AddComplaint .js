@@ -11,7 +11,7 @@ const AddComplaint = ({onAdd}) => {
             return
         }
 
-        onAdd({text})
+        onAdd(text)
         setText('')
  
     }
