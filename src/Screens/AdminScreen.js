@@ -7,6 +7,11 @@ const AdminScreen = ({Logout,isAdmin}) => {
     
       ])
 
+      const [UpdatedComp,setUpdatedComp] = useState({
+        _id: '',
+        status:''
+    })
+
       useEffect(() => {
         const getcomplaints = async () => {
           const fetchedComplaints = await fetchcomplaints()
@@ -23,17 +28,44 @@ const AdminScreen = ({Logout,isAdmin}) => {
     
         return data
       }
+      const submit = async () => {
+
+        try{
+          const res = await fetch('http://localhost:5000/api/UpdateComplaintStatus', {
+            method: 'PUT',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify(UpdatedComp),
+          })
+      
+          const data = await res.json()
+          console.log("res dataaa",data)
+            
+   
+        }catch (error) {
+          console.error(error);
+        }
+      
+      }
 
   
     return (
 
         <div><h1> Admin Screen </h1> 
+        <div className= 'Admbtns' >
           <button
         onClick={Logout}
          className='logout'>
         Logout
       </button>
-            <Complaints complaints={complaints} isAdmin={isAdmin}/>
+      <button style={{background: "green"}}
+        onClick={submit}
+         className='logout'>
+        Submit
+      </button>
+      </div>
+            <Complaints complaints={complaints} isAdmin={isAdmin} selectvalue={(value)=>setUpdatedComp(value)} />
         </div>
         
         

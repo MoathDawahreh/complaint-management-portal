@@ -18,6 +18,9 @@ const localurl = "mongodb://localhost:27017/reactdb"
 	
 	})
 
+	mongoose.set('useFindAndModify', false)
+
+
  
 	
 

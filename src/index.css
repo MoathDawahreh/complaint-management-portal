@@ -58,6 +58,13 @@ body {
   width: 20%;
 }
 
+.Admbtns {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .btn:focus {
   outline: none;
 }

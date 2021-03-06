@@ -83,7 +83,19 @@ module.exports = {
             res.send(results)
             console.log(results)
         })
+    },
+
+    UpdateComplaintStatus : function(req,res){
+        id =req.body._id
+        st = req.body.status
+
+        Complaints.geComplaintById(id,st,function (results){
+            res.send(results)
+            console.log(results)
+           
+        })
     }
+
 
 
 

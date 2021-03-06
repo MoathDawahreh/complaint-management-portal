@@ -24,6 +24,7 @@ const ComplaintSchema  = new mongoose.Schema ({
 })
 
 
+
 const Complaints = mongoose.model('Complaints', ComplaintSchema);
 
 exports.SaveComplaint = function(complaint,status,userId,callback){
@@ -49,3 +50,12 @@ exports.geComplaintsByUserId = function (userId,callback){
 	.then(callback)
 
 }
+
+exports.geComplaintById = function (userId,st,callback){
+	console.log("infindone and update")
+	Complaints.findOneAndUpdate({_id:userId},{status:st})
+	.then(callback)
+
+}
+
+

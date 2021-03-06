@@ -32,6 +32,7 @@ app.post('/api/login', Handlers.login)
 app.get('/api/GetAllComplaints', Handlers.GetComplaints)
 app.post('/api/complaintsByUser', Handlers.GetComplaintsByUser)
 
+app.put('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
 
 
 // app.get('/add-user', (req, res) => {
