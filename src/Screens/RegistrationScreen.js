@@ -21,7 +21,7 @@ const RegistrationScreen = (props) => {
          const signupdata = {
             username: userName,
             pwd: passowrd,
-            admin: admin
+            isAdmin: admin
 
         }
         console.log(signupdata)
