@@ -79,12 +79,14 @@ const UserScreen = ({logedUser,Logout}) => {
     return (
 
         <><h1> User Screen </h1>
-          {/* <Header ShowComplaints ={ShowComplaints}/> */}
           <button
         onClick={Logout}
          className='logout'>
         Logout
       </button>
+
+          <Header ShowComplaints ={ShowComplaints}/>
+        
         <AddComplaint onAdd = {AddAcomplaint} />
         <Complaints complaints={complaints} />
          </>
