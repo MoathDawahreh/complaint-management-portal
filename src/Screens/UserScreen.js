@@ -45,7 +45,7 @@ const UserScreen = ({logedUser,Logout}) => {
 
  
       const AddAcomplaint = async (complaint) => {
-        // console.log(logedUser._id)
+        console.log("Add complaint logged user id ",logedUser._id)
         const userId = logedUser._id
         const newcomplaint = {userId,complaint,status:"Pending"}
         try{

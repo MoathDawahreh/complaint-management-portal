@@ -52,7 +52,7 @@ exports.geComplaintsByUserId = function (userId,callback){
 }
 
 exports.geComplaintById = function (userId,st,callback){
-	console.log("infindone and update")
+	// console.log("infindone and update")
 	Complaints.findOneAndUpdate({_id:userId},{status:st})
 	.then(callback)
 

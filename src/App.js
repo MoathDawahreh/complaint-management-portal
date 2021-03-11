@@ -3,13 +3,9 @@ import {useState,useEffect,React,useRef } from 'react'
 import RegistrationScreen from './Screens/RegistrationScreen'
 import UserScreen from './Screens/UserScreen'
 import AdminScreen from './Screens/AdminScreen'
- import axios from 'axios';
+import axios from 'axios';
 
 function App() {
-
-
- 
-  // const refContainer = useRef({});
 
   const [isSignedIn,setisSignedIn] = useState(false)
   const [isAdmin,setIsAdmin] = useState(false)
@@ -18,11 +14,11 @@ function App() {
   
   const Register = (signupdata) =>{
 
-    console.log("bing")
-
     axios.post('http://localhost:5000/api/add-user',signupdata)
     .then((res) => { setisSignedIn(true)
       setIsAdmin(res.data.isAdmin)
+      setlogedUser({username:res.data.username,_id:res.data._id})
+
     }
      
     )
@@ -40,10 +36,9 @@ const logIn = (logindata) =>{
   .then((res) => {
     
     setIsAdmin(res.data.isAdmin);  setisSignedIn(true)
-    // console.log(res.data)
+    console.log(res.data)
     setlogedUser({username:res.data.username,_id:res.data._id})
-    // console.log()
-    return res.data
+     return res.data
   }  )
   .catch((error) => {
     alert ("not registeted")
@@ -56,21 +51,14 @@ const logIn = (logindata) =>{
 }
 
  const Logout = ()=>{
-  //  alert("loougout")
-   setisSignedIn(false)
-   setIsAdmin(false)
 
+  setisSignedIn(false)
+  setIsAdmin(false)
+ 
  }
 
   
    return (
-     
-    // <div className="container">
-    //      <LoginScreen refContainer ={refContainer}  />
-    //      <UserScreen/>
-
-    //  </div>
-
 
     isSignedIn && !isAdmin ? (
       

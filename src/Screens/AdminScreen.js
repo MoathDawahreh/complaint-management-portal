@@ -3,23 +3,24 @@ import {useState,useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
 const AdminScreen = ({Logout,isAdmin}) => {
-    const [complaints, setComplaint] = useState([
-    
-      ])
 
-      const [UpdatedComp,setUpdatedComp] = useState({
-        _id: '',
-        status:''
+    const [complaints, setComplaint] = useState([])
+
+    const [UpdatedComp,setUpdatedComp] = useState({
+      _id: '',
+      status:''
     })
 
-      useEffect(() => {
-        const getcomplaints = async () => {
-          const fetchedComplaints = await fetchcomplaints()
-          setComplaint(fetchedComplaints)
+
+    useEffect(() => {
+
+      const getcomplaints = async () => {
+        const fetchedComplaints = await fetchcomplaints()
+        setComplaint(fetchedComplaints)
         }
     
         getcomplaints()
-      }, [])
+    }, [UpdatedComp])
 
       const fetchcomplaints = async () => {
         const res = await fetch('http://localhost:5000/api/GetAllComplaints')
@@ -32,7 +33,7 @@ const AdminScreen = ({Logout,isAdmin}) => {
 
         try{
           const res = await fetch('http://localhost:5000/api/UpdateComplaintStatus', {
-            method: 'PUT',
+            method: 'POST',
             headers: {
               'Content-type': 'application/json',
             },
@@ -41,6 +42,10 @@ const AdminScreen = ({Logout,isAdmin}) => {
       
           const data = await res.json()
           console.log("res dataaa",data)
+          setUpdatedComp({
+            _id: '',
+            status:''
+        })
 
           alert("The complaint Status has been updated!!")
             

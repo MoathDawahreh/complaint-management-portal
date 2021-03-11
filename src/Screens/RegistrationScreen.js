@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState,useEffect } from 'react'
 import Btn from '../components/Btn'
-import axios from 'axios';
+
 const RegistrationScreen = (props) => {
 
     const [userName,setUserName] = useState('')
@@ -27,12 +27,6 @@ const RegistrationScreen = (props) => {
         console.log(signupdata)
         props.Register(signupdata)
 
-        // JSON.stringify(signupdata)
-
-        // axios.post('http://localhost:5000/api/add-user',signupdata)
-        // .then(res => console.log(res.data) )
-
-
         setUserName('')
         setPassowrd('')
         setAdmin(false) 
@@ -43,7 +37,7 @@ const RegistrationScreen = (props) => {
 
     const LogInHandler = (e) =>{
         e.preventDefault()
-        if(!userName || !passowrd){
+        if (!userName || !passowrd){
             alert("Please Enter the email and the password!!")
             return
         }
@@ -69,7 +63,6 @@ const RegistrationScreen = (props) => {
 
     return (
         <>
-        {/* <Btn text={toggle ? 'Register' : 'Login'} onSubmit={()=>{ settoggle(!toggle)  }} /> */}
 
         <form className="login-form"  > 
             <div className='form-control'>
@@ -88,8 +81,6 @@ const RegistrationScreen = (props) => {
 
             </div>
 
-            {/* <input className='btn' type='submit' value='Register'/> */}
-           {/* <label> Dont have account? </label>  */}
 
             <div style={{ display: Log ? "block" : "none" }} >
             <Btn  text ={'Login'}  onSubmit={LogInHandler}/> </div>
