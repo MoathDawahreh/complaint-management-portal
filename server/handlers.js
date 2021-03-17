@@ -6,7 +6,6 @@ const Complaints = require('./models/model.complaints')
 
 module.exports = {
 
-
     login: function(req, res){
 		var username = req.body.username;
         var pwd = req.body.pwd
@@ -31,13 +30,13 @@ module.exports = {
 	},
 
    
-	Adduser: function(req, res){
+	Registration: function(req, res){
 
         console.log("boddy the ct", req.body)
-       var username = req.body.username;
-       var pwd = req.body.pwd;
-       var isAdmin = req.body.isAdmin;
-  
+        var username = req.body.username;
+        var pwd = req.body.pwd;
+        var isAdmin = req.body.isAdmin;
+
         Users.SaveUser(username,pwd,isAdmin,function(result){
 
             res.send(result)
@@ -95,8 +94,6 @@ module.exports = {
            
         })
     }
-
-
 
 
 

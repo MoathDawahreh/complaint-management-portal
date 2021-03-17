@@ -1,11 +1,12 @@
 
 const Handlers = require ('./handlers')
 const express = require('express')
-const bodyParser = require('body-parser');
 var cors = require('cors')
 const fs = require('fs');
-// const path = require ('path')
-const https = require('https');
+const path = require ('path')
+const https = require('https')
+require('dotenv').config()
+
 
 // const { create } = require('domain');
 const privateKey  = fs.readFileSync('./cert/key.pem', 'utf8');
@@ -19,12 +20,19 @@ const port = 5000
 app.use(cors())
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+// app.use(express.static(__dirname + '/../public'));
+// app.use('/static', express.static(path.join(__dirname, '/../public')))
+app.use(express.static(path.join(__dirname, '/../public')))
+
+ 
+
+
 
 app.get('/', (req, res) => {
   res.send('WOOHOO!')
 })
 
-app.post('/api/add-user', Handlers.Adduser)
+app.post('/api/add-user', Handlers.Registration)
 app.get('/api/AllUsers', Handlers.GetUsers)
 app.post('/api/add-complaint', Handlers.AddComplaint)
 app.post('/api/login', Handlers.login)

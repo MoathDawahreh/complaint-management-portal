@@ -40,7 +40,7 @@ exports.SaveUser = function(username,pwd,isAdmin,callback){
 
 	exports.getAllusers = function (callback){
 		Users.find()
-		.then(callback)
+		.then(callback).catch((err) =>{ console.log(err) })
 
 	}
 
@@ -48,7 +48,7 @@ exports.SaveUser = function(username,pwd,isAdmin,callback){
 		
 		Users.findOne({username:username })
 
-		.then(callback)
+		.then(callback).catch((err) =>{ console.log(err) })
 
 	}
 
