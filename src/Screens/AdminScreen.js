@@ -29,6 +29,8 @@ const AdminScreen = ({Logout,isAdmin}) => {
     
         return data
       }
+
+      
       const submit = async () => {
 
         try{

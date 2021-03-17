@@ -3,19 +3,48 @@ import {useState,useEffect } from 'react'
 import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 import Header from '../components/Header'
-const UserScreen = ({logedUser,Logout}) => {
 
-  console.log("firstloggg",logedUser)
+
+const UserScreen = ({logedUser,Logout}) => {
 
     const [complaints, setComplaint] = useState([
     
       ])
 
+
+      // useEffect(() => {
+
+      //   const getcomplaints = async () => {
+      //     const fetchedComplaints = await fetchComplaintsByUserId()
+      //     setComplaint(fetchedComplaints)
+      //     }
+      
+      //     getcomplaints()
+      // }, [logedUser,Logout])
+
+
+      // const fetchComplaintsByUserId = async () => {
+      //   const userId ={userId:logedUser._id }
+
+      //   const res = await fetch('http://localhost:5000/api/complaintsByUser', {
+      //     method: 'POST',
+      //     headers: {
+      //       'Content-type': 'application/json',
+      //     },
+      //     body: JSON.stringify(userId),
+      //   })
+      //   const data = await res.json()
+      //   console.log(data)
+    
+      //   return data
+      // }
+  
+
     
 
       const ShowComplaints = async () => {
         const userId ={userId:logedUser._id }
-        console.log("passed",JSON.stringify(userId))
+        // console.log("passed",JSON.stringify(userId))
 
 
         try{
@@ -69,10 +98,6 @@ const UserScreen = ({logedUser,Logout}) => {
 
       }
 
-
-      
-
-    
 
 
 
