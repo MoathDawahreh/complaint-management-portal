@@ -8,15 +8,8 @@ const localurl = "mongodb://localhost:27017/reactdb"
 
   mongoose.connect(DB_Key, {useNewUrlParser: true, useUnifiedTopology: true} ,(error)=>{
 
-	if(!error){
-
-		console.log('connected to ReactDb')
-		
-		}else{
-
-			console.log("localnot connected")
-		}
-	
+	if (error) throw error;
+	console.log('connected to ReactDb')
 	})
 
 	mongoose.set('useFindAndModify', false)

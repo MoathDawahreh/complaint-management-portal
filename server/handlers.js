@@ -1,31 +1,30 @@
 const Users = require('./models/model.users')
 const Complaints = require('./models/model.complaints')
 
+const bcrypt = require('bcryptjs')
+
 
 
 
 module.exports = {
 
     login: function(req, res){
-		var username = req.body.username;
-        var pwd = req.body.pwd
 
-        // console.log("the body pwwd",res.body)
+		const username = req.body.username;
+        const pwd = req.body.pwd
 
 		Users.FindUser(username,function(user){
 
+            const passwordIsValid = bcrypt.compareSync(pwd, user.pwd )
 
-            if (!user || pwd !== user.pwd ) {
-                return res.status(404).send({ message: "incorrect username or pwd." });
-              }
+            if (!passwordIsValid ) return res.status(404).send({ message: "incorrect username or password." });
 
               res.status(200).send({
                   username: user.username,
                   isAdmin: user.isAdmin,
                   _id: user._id
                 })
-            // res.send(user)
-            console.log("git all users function",pwd)
+
 		})
 	},
 
@@ -33,9 +32,10 @@ module.exports = {
 	Registration: function(req, res){
 
         console.log("boddy the ct", req.body)
-        var username = req.body.username;
-        var pwd = req.body.pwd;
-        var isAdmin = req.body.isAdmin;
+        const username = req.body.username;
+        const pwd = bcrypt.hashSync(req.body.pwd, 8)
+        // req.body.pwd;
+        const isAdmin = req.body.isAdmin;
 
         Users.SaveUser(username,pwd,isAdmin,function(result){
 
@@ -57,9 +57,9 @@ module.exports = {
 
     AddComplaint : function(req,res){
 
-        var complaint = req.body.complaint;
-        var status = req.body.status;
-        var userId = req.body.userId;
+        const complaint = req.body.complaint;
+        const status = req.body.status;
+        const userId = req.body.userId;
 
         Complaints.SaveComplaint(complaint,status,userId,function (results){
             res.send(results)
