@@ -45,15 +45,15 @@ exports.getAllComplaints = function (callback){
 }
 
 
-exports.geComplaintsByUserId = function (userId,callback){
+exports.getComplaintsByUserId = function (userId,callback){
 	Complaints.find({userId:userId})
 	.then(callback)
 
 }
 
-exports.getComplaintsByUserId = function (userId,st,callback){
+exports.UpdateComplaintStatusById = function (id,st,callback){
 	// console.log("infindone and update")
-	Complaints.findOneAndUpdate({_id:userId},{status:st})
+	Complaints.findOneAndUpdate({_id:id},{status:st})
 	.then(callback)
 
 }

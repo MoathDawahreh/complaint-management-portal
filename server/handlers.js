@@ -88,7 +88,7 @@ module.exports = {
         id = req.body._id
         st = req.body.status
 
-        Complaints.geComplaintById(id,st,function (results){
+        Complaints.UpdateComplaintStatusById(id,st,function (results){
             res.send(results)
             console.log(results)
            

@@ -43,7 +43,7 @@ const UserScreen = ({logedUser,Logout}) => {
 
       const ShowComplaints = async () => {
         const userId ={userId:logedUser._id }
-        // console.log("passed",JSON.stringify(userId))
+        console.log("passed",JSON.stringify(userId))
 
 
         try{
@@ -61,6 +61,7 @@ const UserScreen = ({logedUser,Logout}) => {
             alert ("your list is empty")
           }
           setComplaint(data)
+          console.log(data)
           
 
       
