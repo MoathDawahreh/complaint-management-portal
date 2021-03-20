@@ -78,14 +78,14 @@ module.exports = {
     GetComplaintsByUser : function(req,res){
         userId =req.body.userId
 
-        Complaints.geComplaintsByUserId(userId,function (results){
+        Complaints.getComplaintsByUserId(userId,function (results){
             res.send(results)
             console.log(results)
         })
     },
 
     UpdateComplaintStatus : function(req,res){
-        id =req.body._id
+        id = req.body._id
         st = req.body.status
 
         Complaints.geComplaintById(id,st,function (results){
@@ -93,6 +93,16 @@ module.exports = {
             console.log(results)
            
         })
+    },
+    DeleteAcomplaint : (req,res) => {
+
+        id = req.body.id
+        Complaints.deleteAcomplaintById(id, ()=> {
+            res.status(200).send({message:"The Complaint has been deleted!"})
+            // res.send("The Complaint has been deleted!")
+
+        })
+
     }
 
 

@@ -51,10 +51,16 @@ exports.geComplaintsByUserId = function (userId,callback){
 
 }
 
-exports.geComplaintById = function (userId,st,callback){
+exports.getComplaintsByUserId = function (userId,st,callback){
 	// console.log("infindone and update")
 	Complaints.findOneAndUpdate({_id:userId},{status:st})
 	.then(callback)
+
+}
+
+exports.deleteAcomplaintById = (id,callback)=> {
+	Complaints.deleteOne({ _id: id })
+	.then(callback).catch((err) =>{ throw err })
 
 }
 

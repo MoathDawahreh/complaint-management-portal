@@ -3,8 +3,7 @@ import {useState,useEffect } from 'react'
 import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 import Header from '../components/Header'
-
-
+ 
 const UserScreen = ({logedUser,Logout}) => {
 
     const [complaints, setComplaint] = useState([
@@ -74,6 +73,7 @@ const UserScreen = ({logedUser,Logout}) => {
 
  
       const AddAcomplaint = async (complaint) => {
+
         console.log("Add complaint logged user id ",logedUser._id)
         const userId = logedUser._id
         const newcomplaint = {userId,complaint,status:"Pending"}
@@ -98,6 +98,29 @@ const UserScreen = ({logedUser,Logout}) => {
 
       }
 
+      const DeleteComplaint = async (id) => {
+
+        try{
+
+
+          const res = await fetch('http://localhost:5000/api/DeleteAcomplaint', {
+            method: 'DELETE',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify( {id: id}),
+          })
+            const response = await res.json()
+            alert(response.message)
+
+      } catch (error){
+        throw error
+      }
+
+      
+
+      }
+
 
 
 
@@ -113,8 +136,8 @@ const UserScreen = ({logedUser,Logout}) => {
           <Header ShowComplaints ={ShowComplaints}/>
         
         <AddComplaint onAdd = {AddAcomplaint} />
-        <Complaints complaints={complaints} />
-         </>
+        <Complaints complaints={complaints}  Delete ={DeleteComplaint} />
+          </>
         
 
             

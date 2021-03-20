@@ -6,9 +6,8 @@ import { FaAlignJustify, FaTimes } from 'react-icons/fa'
 
 
 
-const Complaint = ({selectvalue,complaint,isAdmin}) => {
+const Complaint = ({selectvalue,complaint,isAdmin,Delete}) => {
   
-    console.log("inn complain",selectvalue)
     // onChange={ (e)=> setUpdatedComp({status:e.target.value,_id:complaint._id}
 
     return (
@@ -19,7 +18,7 @@ const Complaint = ({selectvalue,complaint,isAdmin}) => {
                 {complaint.complaint}
                  <FaTimes 
                      style={{ color: 'red', cursor: 'pointer',display: !isAdmin ? "block" : "none"  }}
-                        //  onClick={() => onDelete(complaint.id)} 
+                         onClick={() => Delete(complaint._id)} 
                         />
 
                     <select style={{ display: isAdmin ? "block" : "none" }} onChange={ (e)=> selectvalue({status:e.target.value,_id:complaint._id})  }>

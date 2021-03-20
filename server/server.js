@@ -36,6 +36,8 @@ app.get('/api/GetAllComplaints', Handlers.GetComplaints)
 app.post('/api/complaintsByUser', Handlers.GetComplaintsByUser)
 
 app.post('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
+app.delete('/api/DeleteAcomplaint', Handlers.DeleteAcomplaint)
+
 
 
 const httpsServer = https.createServer(credentials, app);
