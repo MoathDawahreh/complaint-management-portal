@@ -72,7 +72,7 @@ const AdminScreen = ({Logout,isAdmin}) => {
       <button style={{background: "green"}}
         onClick={submit}
          className='logout'>
-        
+        Submit
       </button>
       </div>
             <Complaints complaints={complaints} isAdmin={isAdmin} selectvalue={(value)=>setUpdatedComp(value)} />
