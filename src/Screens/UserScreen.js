@@ -4,7 +4,7 @@ import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 import Header from '../components/Header'
  
-const UserScreen = ({logedUser,Logout,SignedIn}) => {
+const UserScreen = ({logedUser,Logout}) => {
 
     
   const [complaints, setComplaint] = useState([])
@@ -24,11 +24,8 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
           console.log('i fire logedUser',logedUser);
 
           }
-
           getcomplaints()
-
          
-          // do stuff
       }
 
       if( ! rendered ) {
@@ -40,8 +37,8 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
 
 
       const fetchComplaintsByUserId = async () => {
-          const userId ={userId:logedUser._id }
-          // const userId ={userId:id }
+        
+        const userId ={userId:logedUser._id }
         const res = await fetch('http://localhost:5000/api/complaintsByUser', {
           method: 'POST',
           headers: {
@@ -136,10 +133,8 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
         throw error
       }
 
-      
 
       }
-
 
 
 
