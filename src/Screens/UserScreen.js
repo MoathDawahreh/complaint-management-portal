@@ -4,16 +4,21 @@ import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 import Header from '../components/Header'
  
-const UserScreen = ({logedUser,Logout}) => {
+const UserScreen = ({logedUser,Logout,SignedIn}) => {
 
     
   const [complaints, setComplaint] = useState([])
- 
+  // to skip the first render and avoid calling with the inital value wich is empty
+  const [rendered, setRendered] = useState(false);
+
 
       useEffect(() => {
+ 
+        if(rendered){
+          
+        console.log("useEffect");
 
         const getcomplaints = async () => {
-
           const fetchedComplaints = await fetchComplaintsByUserId()
           setComplaint(fetchedComplaints)
           console.log('i fire logedUser',logedUser);
@@ -21,12 +26,22 @@ const UserScreen = ({logedUser,Logout}) => {
           }
 
           getcomplaints()
+
+         
+          // do stuff
+      }
+
+      if( ! rendered ) {
+        setRendered(true);
+    }
+
+
       }, [logedUser])
 
 
       const fetchComplaintsByUserId = async () => {
           const userId ={userId:logedUser._id }
-
+          // const userId ={userId:id }
         const res = await fetch('http://localhost:5000/api/complaintsByUser', {
           method: 'POST',
           headers: {
@@ -35,7 +50,7 @@ const UserScreen = ({logedUser,Logout}) => {
           body: JSON.stringify(userId),
         })
         const data = await res.json();
-        console.log("fetched daaataa",data,"userridd",)
+         console.log("fetched daaataa",data,"userridd",userId)
         return data
      
       }
