@@ -37,10 +37,7 @@ const RegistrationScreen = (props) => {
 
     const LogInHandler = (e) =>{
         e.preventDefault()
-        if (!userName || !passowrd){
-            alert("Please Enter the email and the password!!")
-            return
-        }
+        if (!userName || !passowrd) return alert("Please Enter the email and the password!!");
 
         const logindata = {
             username: userName,
@@ -48,13 +45,11 @@ const RegistrationScreen = (props) => {
  
         }
          props.logIn(logindata)
+         
 
         setUserName('')
         setPassowrd('')
         setAdmin(false) 
-
-        
-        
 
     }
     

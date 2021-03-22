@@ -25,7 +25,8 @@ const AdminScreen = ({Logout,isAdmin}) => {
       const fetchcomplaints = async () => {
         const res = await fetch('http://localhost:5000/api/GetAllComplaints')
         const data = await res.json()
-        console.log(data)
+
+        console.log("dataaa",data)
     
         return data
       }
@@ -71,7 +72,7 @@ const AdminScreen = ({Logout,isAdmin}) => {
       <button style={{background: "green"}}
         onClick={submit}
          className='logout'>
-        Submit
+        
       </button>
       </div>
             <Complaints complaints={complaints} isAdmin={isAdmin} selectvalue={(value)=>setUpdatedComp(value)} />

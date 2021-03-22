@@ -29,8 +29,7 @@ function App() {
  
 
 
-const logIn = (logindata) =>{
-
+const logIn = async (logindata) =>{
 
   axios.post('http://localhost:5000/api/login',logindata)
   .then((res) => {
@@ -38,11 +37,11 @@ const logIn = (logindata) =>{
     setIsAdmin(res.data.isAdmin);  setisSignedIn(true)
     console.log(res.data)
     setlogedUser({username:res.data.username,_id:res.data._id})
-     return res.data
+    //  return res.data
   }  )
   .catch((error) => {
     alert ("not registeted")
-    console.log(error.request);
+    console.log(error);
     return error
 
   })
@@ -52,8 +51,10 @@ const logIn = (logindata) =>{
 
  const Logout = ()=>{
 
+  setlogedUser({username:"",_id:""})
   setisSignedIn(false)
   setIsAdmin(false)
+
  
  }
 
@@ -63,13 +64,13 @@ const logIn = (logindata) =>{
     isSignedIn && !isAdmin ? (
       
       <div className="container">
-         <UserScreen logedUser={logedUser} Logout={Logout} />
+         <UserScreen logedUser={logedUser}  SignedIn ={isSignedIn} Logout={Logout}/>
        
          </div>
     ) : isAdmin? (
       <div className="container">
 
-         <AdminScreen Logout={Logout} isAdmin={isAdmin} />
+         <AdminScreen Logout={Logout} isAdmin={isAdmin} logedUser={logedUser} />
          </div>
     ) :(
 

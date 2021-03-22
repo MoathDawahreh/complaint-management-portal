@@ -6,37 +6,39 @@ import Header from '../components/Header'
  
 const UserScreen = ({logedUser,Logout}) => {
 
-    const [complaints, setComplaint] = useState([
     
-      ])
+  const [complaints, setComplaint] = useState([])
+ 
+
+      useEffect(() => {
+
+        const getcomplaints = async () => {
+
+          const fetchedComplaints = await fetchComplaintsByUserId()
+          setComplaint(fetchedComplaints)
+          console.log('i fire logedUser',logedUser);
+
+          }
+
+          getcomplaints()
+      }, [logedUser])
 
 
-      // useEffect(() => {
+      const fetchComplaintsByUserId = async () => {
+          const userId ={userId:logedUser._id }
 
-      //   const getcomplaints = async () => {
-      //     const fetchedComplaints = await fetchComplaintsByUserId()
-      //     setComplaint(fetchedComplaints)
-      //     }
-      
-      //     getcomplaints()
-      // }, [logedUser,Logout])
-
-
-      // const fetchComplaintsByUserId = async () => {
-      //   const userId ={userId:logedUser._id }
-
-      //   const res = await fetch('http://localhost:5000/api/complaintsByUser', {
-      //     method: 'POST',
-      //     headers: {
-      //       'Content-type': 'application/json',
-      //     },
-      //     body: JSON.stringify(userId),
-      //   })
-      //   const data = await res.json()
-      //   console.log(data)
-    
-      //   return data
-      // }
+        const res = await fetch('http://localhost:5000/api/complaintsByUser', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify(userId),
+        })
+        const data = await res.json();
+        console.log("fetched daaataa",data,"userridd",)
+        return data
+     
+      }
   
 
     
@@ -134,7 +136,7 @@ const UserScreen = ({logedUser,Logout}) => {
         Logout
       </button>
 
-          <Header ShowComplaints ={ShowComplaints}/>
+          {/* <Header ShowComplaints ={ShowComplaints}/> */}
         
         <AddComplaint onAdd = {AddAcomplaint} />
         <Complaints complaints={complaints}  Delete ={DeleteComplaint} />

@@ -17,7 +17,7 @@ module.exports = {
 
             const passwordIsValid = bcrypt.compareSync(pwd, user.pwd )
 
-            if (!passwordIsValid ) return res.status(404).send({ message: "incorrect username or password." });
+            if (!passwordIsValid || !user ) return res.status(404).send({ message: "incorrect username or password." });
 
               res.status(200).send({
                   username: user.username,
@@ -79,9 +79,11 @@ module.exports = {
         userId =req.body.userId
 
         Complaints.getComplaintsByUserId(userId,function (results){
-            res.send(results)
+            res.status(200).send(results)
+
+            // res.send(results)
             console.log(results)
-        })
+        }) 
     },
 
     UpdateComplaintStatus : function(req,res){
