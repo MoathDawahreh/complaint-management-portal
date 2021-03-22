@@ -37,7 +37,6 @@ const logIn = async (logindata) =>{
     setIsAdmin(res.data.isAdmin);  setisSignedIn(true)
     console.log(res.data)
     setlogedUser({username:res.data.username,_id:res.data._id})
-    //  return res.data
   }  )
   .catch((error) => {
     alert ("not registeted")

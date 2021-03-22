@@ -5,7 +5,6 @@ import Complaints from '../components/Complaints'
 import Header from '../components/Header'
  
 const UserScreen = ({logedUser,Logout}) => {
-
     
   const [complaints, setComplaint] = useState([])
   // to skip the first render and avoid calling with the inital value wich is empty
@@ -77,7 +76,6 @@ const UserScreen = ({logedUser,Logout}) => {
           setComplaint(data)
           console.log(data)
           
-
       
    
         }catch (error) {
@@ -85,7 +83,6 @@ const UserScreen = ({logedUser,Logout}) => {
         }
        
       }
-
  
       const AddAcomplaint = async (complaint) => {
 
