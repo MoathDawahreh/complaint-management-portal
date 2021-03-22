@@ -10,7 +10,7 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
   const [complaints, setComplaint] = useState([])
   // to skip the first render and avoid calling with the inital value wich is empty
   const [rendered, setRendered] = useState(false);
-
+  const [toggle,settoggle] = useState (false)
 
       useEffect(() => {
  
@@ -36,7 +36,7 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
     }
 
 
-      }, [logedUser])
+      }, [logedUser,toggle])
 
 
       const fetchComplaintsByUserId = async () => {
@@ -130,6 +130,7 @@ const UserScreen = ({logedUser,Logout,SignedIn}) => {
           })
             const response = await res.json()
             alert(response.message)
+            settoggle(!toggle)
 
       } catch (error){
         throw error
