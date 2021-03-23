@@ -1,6 +1,8 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### `Getting Started!`
+
+Download the dependencies using 'npm i' - Make sure to download the server-side dependencies as well inside the server folder-.
+To connect to a MongoDB Atlas just set the .env API key -Or set a local database-.
 
 ## Available Scripts
 
