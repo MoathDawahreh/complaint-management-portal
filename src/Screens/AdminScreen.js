@@ -11,6 +11,7 @@ const AdminScreen = ({ Logout, isAdmin }) => {
 	})
 
 	useEffect(() => {
+		console.log('useeffect fire')
 		const getcomplaints = async () => {
 			const fetchedComplaints = await fetchcomplaints()
 			setComplaint(fetchedComplaints)

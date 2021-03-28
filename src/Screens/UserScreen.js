@@ -6,7 +6,7 @@ import Complaints from '../components/Complaints'
 const UserScreen = ({ logedUser, Logout }) => {
 	const [complaints, setComplaint] = useState([])
 
-	// to skip the first render and avoid calling with the inital value wich is empty
+	// to skip the first render and avoid calling with the inital empty value
 	const [rendered, setRendered] = useState(false)
 	const [Deletetoggle, setDeletetoggle] = useState(false)
 
@@ -34,6 +34,11 @@ const UserScreen = ({ logedUser, Logout }) => {
 				setComplaint(fetchedComplaints)
 			}
 			getcomplaints()
+
+			// return () => {
+			// 	console.log("cleanup");
+			// 	clearInterval(getcomplaints);
+			// }
 		}
 
 		if (!rendered) {
