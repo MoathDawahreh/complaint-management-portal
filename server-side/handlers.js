@@ -54,26 +54,28 @@ module.exports = {
 		const status = req.body.status
 		const userId = req.body.userId
 
-		Complaints.SaveComplaint(complaint, status, userId, function (results) {
+		Complaints.SaveComplaint(complaint, status, userId, function (error, results) {
+
+			if (error) return res.send(error)
 			res.send(results)
 			console.log('Addd complaint handler results', results)
 		})
 	},
 
 	GetComplaints: function (req, res) {
-		Complaints.getAllComplaints(function (results) {
+		Complaints.getAllComplaints (function (err,results) {
+			if (err) return res.status(500).send(err)
 			res.send(results)
-			console.log(results)
 		})
 	},
 
 	GetComplaintsByUser: function (req, res) {
 		const userId = req.body.userId
 
-		Complaints.getComplaintsByUserId(userId, function (results) {
+		Complaints.getComplaintsByUserId(userId, function (err,results) {
+			if (err) return res.status(500).send(err)
 			res.status(200).send(results)
 
-			// res.send(results)
 			console.log(results)
 		})
 	},
@@ -91,7 +93,6 @@ module.exports = {
 		const id = req.body.id
 		Complaints.deleteAcomplaintById(id, () => {
 			res.status(200).send({ message: 'The Complaint has been deleted!' })
-			// res.send("The Complaint has been deleted!")
 		})
 	},
 }

@@ -31,23 +31,23 @@ exports.SaveComplaint = function(complaint,status,userId,callback){
 		
 
     const Complaint = new Complaints({complaint: complaint, status: status, userId:userId})
-     console.log("complaint in mongoose moudle scheeme",Complaint)
-     Complaint.save()
-    .then(callback).catch((err) =>{ console.log(err) })
+     Complaint.save().then(callback)
+	 console.log("complaint in mongoose moudle scheeme",Complaint)
+
 
 
 }
 
 exports.getAllComplaints = function (callback){
 	Complaints.find()
-	.then(callback)
+	.exec(callback)
 
 }
 
 
 exports.getComplaintsByUserId = function (userId,callback){
 	Complaints.find({userId:userId})
-	.then(callback)
+	.exec(callback)
 
 }
 

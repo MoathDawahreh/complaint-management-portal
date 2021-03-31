@@ -11,11 +11,13 @@ function App() {
 	const [logedUser, setlogedUser] = useState({ username: '', _id: '' })
 
 	const Register = (signupdata) => {
-		axios.post('http://localhost:5000/api/add-user', signupdata).then((res) => {
-			setisSignedIn(true)
-			setIsAdmin(res.data.isAdmin)
-			setlogedUser({ username: res.data.username, _id: res.data._id })
-		})
+		axios
+			.post('http://localhost:5000/api/Registration', signupdata)
+			.then((res) => {
+				setisSignedIn(true)
+				setIsAdmin(res.data.isAdmin)
+				setlogedUser({ username: res.data.username, _id: res.data._id })
+			})
 	}
 
 	const logIn = async (logindata) => {
