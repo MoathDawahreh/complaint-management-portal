@@ -1,6 +1,8 @@
 const Users = require('./models/model.users')
 const Complaints = require('./models/model.complaints')
 var jwt = require("jsonwebtoken");
+const express = require('express')
+const app = express()
 
 const { performance, PerformanceObserver } = require('perf_hooks')
 
@@ -16,16 +18,21 @@ module.exports = {
 			console.log('user result call back', user)
 			const passwordIsValid = bcrypt.compareSync(pwd, user.pwd)
 
-			if (!passwordIsValid || !user)
-				return res
-					.status(404)
-					.send({ message: 'incorrect username or password.' })
+			if (!passwordIsValid || !user) return res.status(404).send({ message: 'incorrect username or password.' })
+
+			let token = jwt.sign({ username: user.username ,_id: user._id,isAdmin: user.isAdmin },process.env.ACCESS_TOKENSECRET,{expiresIn: 40000 })
+			// res.header(field, [value])
+			// req.headers.append('token',token)
+			res.header('token' , token )
 
 			res.status(200).send({
 				username: user.username,
 				isAdmin: user.isAdmin,
 				_id: user._id,
+				accessToken: token
 			})
+			// console.log("login",req.headers)
+
 		})
 		const end = performance.now()
 		console.log(`Excution time is :${end - start} ms`)
@@ -72,7 +79,8 @@ module.exports = {
 	},
 
 	GetComplaintsByUser: function (req, res) {
-		const userId = req.body.userId
+		console.log("in get complaiintt",req.user)
+		const userId = req.user._id
 
 		Complaints.getComplaintsByUserId(userId, function (err,results) {
 			if (err) return res.status(500).send(err)

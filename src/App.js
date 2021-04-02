@@ -26,8 +26,10 @@ function App() {
 			.then((res) => {
 				setIsAdmin(res.data.isAdmin)
 				setisSignedIn(true)
-				console.log(res.data)
+				console.log("data",res.data)
+				console.log("headers",res.headers)
 				setlogedUser({ username: res.data.username, _id: res.data._id })
+				localStorage.setItem('token', res.data.accessToken)
 			})
 			.catch((error) => {
 				alert('not registeted')
@@ -40,6 +42,8 @@ function App() {
 		setlogedUser({ username: '', _id: '' })
 		setisSignedIn(false)
 		setIsAdmin(false)
+		localStorage.clear();
+
 	}
 
 	return isSignedIn && !isAdmin ? (

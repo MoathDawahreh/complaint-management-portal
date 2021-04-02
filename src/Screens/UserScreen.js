@@ -9,27 +9,29 @@ const UserScreen = ({ logedUser, Logout }) => {
 	// to skip the first render and avoid calling with the inital empty value
 	const [rendered, setRendered] = useState(false)
 	const [Deletetoggle, setDeletetoggle] = useState(false)
-
 	useEffect(() => {
 		if (rendered) {
 			const getcomplaints = async () => {
+				const token = localStorage.getItem('token')
 				const fetchComplaintsByUserId = async () => {
-					const userId = { userId: logedUser._id }
+					// const userId = { userId: logedUser._id }
 					const res = await fetch(
 						'http://localhost:5000/api/complaintsByUser',
 						{
 							method: 'POST',
 							headers: {
 								'Content-type': 'application/json',
+								'Authorization' : `Bearer ${token}`
 							},
-							body: JSON.stringify(userId),
+							// body: JSON.stringify(userId),
 						}
 					)
 					const data = await res.json()
-					console.log('fetched daaataa', data, 'userridd', userId)
+					console.log('fetched daaataa', data,)
 					return data
 				}
 				const fetchedComplaints = await fetchComplaintsByUserId()
+				if(!fetchedComplaints) return setComplaint([])
 
 				setComplaint(fetchedComplaints)
 			}
@@ -44,7 +46,7 @@ const UserScreen = ({ logedUser, Logout }) => {
 		if (!rendered) {
 			setRendered(true)
 		}
-	}, [logedUser, Deletetoggle, rendered])
+	}, [ Deletetoggle, rendered])
 
 	// const fetchComplaintsByUserId = async () => {
 	// 	const userId = { userId: logedUser._id }

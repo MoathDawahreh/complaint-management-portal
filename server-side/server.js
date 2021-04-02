@@ -3,7 +3,7 @@ const Middlewares = require('./middlewares')
 const express = require('express')
 var cors = require('cors')
 const fs = require('fs')
-const path = require('path')
+// const path = require('path')
 const https = require('https')
 require('dotenv').config()
 
@@ -32,13 +32,12 @@ app.get('/api/AllUsers', Handlers.GetUsers)
 app.post('/api/add-complaint', Handlers.AddComplaint)
 app.post('/api/login', Handlers.login)
 app.get('/api/GetAllComplaints', Handlers.GetComplaints)
-app.post('/api/complaintsByUser', Handlers.GetComplaintsByUser)
+app.post('/api/complaintsByUser',Middlewares.verifyToken, Handlers.GetComplaintsByUser)
 
 app.post('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
 app.delete('/api/DeleteAcomplaint', Handlers.DeleteAcomplaint)
 
 const httpsServer = https.createServer(credentials, app)
-
 // httpsServer.listen(4000,()=>{console.log("httpsss at 4000")})
 
 app.listen(port, () => {
