@@ -27,7 +27,7 @@ const RegistrationScreen = (props) => {
 		setAdmin(false)
 	}
 
-	const LogInHandler = (e) => {
+	const LogInHandler = async (e) => {
 		e.preventDefault()
 		if (!userName || !passowrd)
 			return alert('Please Enter the email and the password!!')
@@ -36,12 +36,18 @@ const RegistrationScreen = (props) => {
 			username: userName,
 			pwd: passowrd,
 		}
-		props.logIn(logindata)
+		console.log('history in reg', props.history)
+		await props.logIn(logindata, props)
 
 		setUserName('')
 		setPassowrd('')
 		setAdmin(false)
 	}
+
+	// const handleloginauth = (props) => {
+	// 	console.log('handl auth', props.history)
+	// 	props.history.push('/UserScreen')
+	// }
 
 	return (
 		<>

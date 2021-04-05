@@ -15,10 +15,10 @@ module.exports = {
 		const start = performance.now()
 		console.log(req.body)
 		Users.FindUser(username, function (err, user) {
-			console.log('user result call back', user)
-			const passwordIsValid = bcrypt.compareSync(pwd, user.pwd)
 
-			if (!passwordIsValid || !user) return res.status(404).send({ message: 'incorrect username or password.' })
+			if(user === null) return res.status(404).send({ message: 'incorrect username or password.' })
+			const passwordIsValid = bcrypt.compareSync(pwd, user.pwd)
+			if (!passwordIsValid || !user ) return res.status(404).send({ message: 'incorrect username or password.' })
 
 			let token = jwt.sign({ username: user.username ,_id: user._id,isAdmin: user.isAdmin },process.env.ACCESS_TOKENSECRET,{expiresIn: 40000 })
 			// res.header(field, [value])

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
 
-const UserScreen = ({ logedUser, Logout }) => {
+const UserScreen = ({ logedUser, Logout, props }) => {
 	const [complaints, setComplaint] = useState([])
 
 	// to skip the first render and avoid calling with the inital empty value
@@ -21,17 +21,19 @@ const UserScreen = ({ logedUser, Logout }) => {
 							method: 'POST',
 							headers: {
 								'Content-type': 'application/json',
-								'Authorization' : `Bearer ${token}`
+								Authorization: `Bearer ${token}`,
 							},
 							// body: JSON.stringify(userId),
 						}
 					)
 					const data = await res.json()
-					console.log('fetched daaataa', data,)
+					console.log('fetched daaataa', data)
 					return data
 				}
 				const fetchedComplaints = await fetchComplaintsByUserId()
-				if(!fetchedComplaints) return setComplaint([])
+				if (!fetchedComplaints) {
+					return setComplaint([])
+				}
 
 				setComplaint(fetchedComplaints)
 			}
@@ -46,7 +48,7 @@ const UserScreen = ({ logedUser, Logout }) => {
 		if (!rendered) {
 			setRendered(true)
 		}
-	}, [ Deletetoggle, rendered])
+	}, [Deletetoggle, rendered])
 
 	// const fetchComplaintsByUserId = async () => {
 	// 	const userId = { userId: logedUser._id }
