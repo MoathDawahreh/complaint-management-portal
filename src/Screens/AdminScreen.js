@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
-const AdminScreen = ({ Logout, isAdmin }) => {
+const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
 	const [complaints, setComplaint] = useState([])
 
 	const [UpdatedComp, setUpdatedComp] = useState({
@@ -18,7 +18,7 @@ const AdminScreen = ({ Logout, isAdmin }) => {
 		}
 
 		getcomplaints()
-	}, [UpdatedComp])
+	}, [UpdatedComp, logedUser])
 
 	const fetchcomplaints = async () => {
 		const res = await fetch('http://localhost:5000/api/GetAllComplaints')

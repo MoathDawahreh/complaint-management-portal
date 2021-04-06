@@ -1,9 +1,8 @@
-import { useState, React, useEffect } from 'react'
+import { useState, React } from 'react'
 import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	Link,
 	Redirect,
 } from 'react-router-dom'
 import RegistrationScreen from './Screens/RegistrationScreen'
@@ -15,11 +14,6 @@ function App() {
 	const [isSignedIn, setisSignedIn] = useState(false)
 	const [isAdmin, setIsAdmin] = useState(false)
 	const [logedUser, setlogedUser] = useState({ username: '', _id: '' })
-
-	// useEffect(() => {
-
-	// 	}
-	// }, [isSignedIn,isAdmin,logedUser ])
 
 	const Register = (signupdata) => {
 		axios
@@ -38,16 +32,16 @@ function App() {
 				if (res.status === 200) {
 					setIsAdmin(res.data.isAdmin)
 					setisSignedIn(true)
-					console.log('data', res.data)
-					console.log('headers', res.headers)
+
 					setlogedUser({ username: res.data.username, _id: res.data._id })
 					localStorage.setItem('token', res.data.accessToken)
-					console.log('appp jsjs login history', prop.history)
-					if (res.data.username.isAdmin === true) {
+					if (res.data.isAdmin === true) {
 						prop.history.push('/AdminScreen')
-					} else {
+					} else if (res.data.isAdmin === false) {
 						prop.history.push('/UserScreen')
 						console.log(res.data.isAdmin)
+					} else {
+						prop.history.push('/')
 					}
 				}
 			})
@@ -71,7 +65,52 @@ function App() {
 				<Switch>
 					<Route
 						exact
-						path={'/UserScreen' || '/AdminScreen' || '/'}
+						path="/Registration"
+						render={(props) => (
+							<RegistrationScreen
+								{...props}
+								Register={Register}
+								logIn={logIn}
+							/>
+						)}
+					/>
+					<Route
+						exact
+						path={'/UserScreen'}
+						render={(props) =>
+							isSignedIn && !isAdmin ? (
+								<UserScreen
+									{...props}
+									logedUser={logedUser}
+									SignedIn={isSignedIn}
+									Logout={Logout}
+								/>
+							) : (
+								<Redirect to="/Registration" />
+							)
+						}
+					/>
+
+					<Route
+						exact
+						path="/AdminScreen"
+						render={(props) =>
+							isSignedIn && isAdmin ? (
+								<AdminScreen
+									{...props}
+									Logout={Logout}
+									isAdmin={isAdmin}
+									logedUser={logedUser}
+								/>
+							) : (
+								<Redirect to="/Registration" />
+							)
+						}
+					/>
+
+					<Route
+						exact
+						path={'/' || '/UserScreen' || '/Registration' || '/AdminScreen'}
 						render={(props) =>
 							isSignedIn && !isAdmin ? (
 								<Redirect to="/UserScreen" />
@@ -83,44 +122,6 @@ function App() {
 						}
 					/>
 				</Switch>
-				<Route
-					exact
-					path="/"
-					render={(props) => <Redirect to="/Registration" />}
-				/>
-
-				<Route
-					exact
-					path="/Registration"
-					render={(props) => (
-						<RegistrationScreen {...props} Register={Register} logIn={logIn} />
-					)}
-				/>
-				<Route
-					exact
-					path={'/UserScreen'}
-					render={(props) => (
-						<UserScreen
-							{...props}
-							logedUser={logedUser}
-							SignedIn={isSignedIn}
-							Logout={Logout}
-						/>
-					)}
-				/>
-
-				<Route
-					exact
-					path="/AdminScreen"
-					render={(props) => (
-						<AdminScreen
-							{...props}
-							Logout={Logout}
-							isAdmin={isAdmin}
-							logedUser={logedUser}
-						/>
-					)}
-				/>
 			</Router>
 		</div>
 	)

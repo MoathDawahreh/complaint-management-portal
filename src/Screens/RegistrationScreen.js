@@ -19,7 +19,6 @@ const RegistrationScreen = (props) => {
 			pwd: passowrd,
 			isAdmin: admin,
 		}
-		console.log(signupdata)
 		props.Register(signupdata)
 
 		setUserName('')
@@ -37,7 +36,7 @@ const RegistrationScreen = (props) => {
 			pwd: passowrd,
 		}
 		console.log('history in reg', props.history)
-		await props.logIn(logindata, props)
+		props.logIn(logindata, props)
 
 		setUserName('')
 		setPassowrd('')
