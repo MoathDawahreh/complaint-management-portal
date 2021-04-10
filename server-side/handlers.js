@@ -1,8 +1,6 @@
 const Users = require('./models/model.users')
 const Complaints = require('./models/model.complaints')
 var jwt = require('jsonwebtoken')
-const express = require('express')
-const app = express()
 
 const { performance, PerformanceObserver } = require('perf_hooks')
 
@@ -10,14 +8,20 @@ const bcrypt = require('bcryptjs')
 
 module.exports = {
 	login: function (req, res) {
+		if (!req.body.username || !req.body.pwd)
+			return res
+				.status(500)
+				.send({ message: 'Username & password are required!' })
 		const username = req.body.username
 		const pwd = req.body.pwd
 		const start = performance.now()
 		Users.FindUser(username, function (err, user) {
+			if (err) return res.status(500).send(err)
 			if (user === null)
 				return res
 					.status(404)
 					.send({ message: 'incorrect username or password.' })
+
 			const passwordIsValid = bcrypt.compareSync(pwd, user.pwd)
 			if (!passwordIsValid || !user)
 				return res
@@ -48,12 +52,19 @@ module.exports = {
 	Registration: function (req, res) {
 		const username = req.body.username
 		const pwd = bcrypt.hashSync(req.body.pwd, 8)
-		// req.body.pwd;
 		const isAdmin = req.body.isAdmin
 
-		Users.SaveUser(username, pwd, isAdmin, function (result) {
-			res.send(result)
-			console.log('saaaaaaaved', result)
+		Users.SaveUser(username, pwd, isAdmin, function (user) {
+			let token = jwt.sign(
+				{ username: user.username, _id: user._id, isAdmin: user.isAdmin },
+				process.env.ACCESS_TOKENSECRET,
+				{ expiresIn: 40000 }
+			)
+
+			res.header('token', token)
+
+			res.status(200).send(user)
+			console.log('saaaaaaaved', user)
 		})
 	},
 

@@ -31,8 +31,16 @@ app.post(
 app.get('/api/AllUsers', Handlers.GetUsers)
 app.post('/api/add-complaint', Handlers.AddComplaint)
 app.post('/api/login', Handlers.login)
-app.get('/api/GetAllComplaints', Handlers.GetComplaints)
-app.post('/api/complaintsByUser',Middlewares.verifyToken, Handlers.GetComplaintsByUser)
+app.get(
+	'/api/GetAllComplaints',
+	Middlewares.verifyToken,
+	Handlers.GetComplaints
+)
+app.post(
+	'/api/complaintsByUser',
+	Middlewares.verifyToken,
+	Handlers.GetComplaintsByUser
+)
 
 app.post('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
 app.delete('/api/DeleteAcomplaint', Handlers.DeleteAcomplaint)

@@ -14,14 +14,29 @@ function App() {
 	const [isSignedIn, setisSignedIn] = useState(false)
 	const [isAdmin, setIsAdmin] = useState(false)
 	const [logedUser, setlogedUser] = useState({ username: '', _id: '' })
-
-	const Register = (signupdata) => {
+	// const isuserlogged = JSON.parse(localStorage.getItem('user'))
+	const Register = async (signupdata, prop) => {
 		axios
 			.post('http://localhost:5000/api/Registration', signupdata)
 			.then((res) => {
-				setisSignedIn(true)
-				setIsAdmin(res.data.isAdmin)
-				setlogedUser({ username: res.data.username, _id: res.data._id })
+				if (res.status === 200) {
+					console.log('headerrrs', res.headers)
+					console.log('dadtaa', res.data, 'sdf', res)
+					localStorage.setItem('token', res.headers.token)
+					localStorage.setItem(
+						'user',
+						JSON.stringify({
+							username: res.data.username,
+							_id: res.data._id,
+							isAdmin: res.data.isAdmin,
+						})
+					)
+
+					setisSignedIn(true)
+					setIsAdmin(res.data.isAdmin)
+					setlogedUser({ username: res.data.username, _id: res.data._id })
+					prop.history.push('/')
+				}
 			})
 	}
 
@@ -35,14 +50,15 @@ function App() {
 
 					setlogedUser({ username: res.data.username, _id: res.data._id })
 					localStorage.setItem('token', res.data.accessToken)
-					if (res.data.isAdmin === true) {
-						prop.history.push('/AdminScreen')
-					} else if (res.data.isAdmin === false) {
-						prop.history.push('/UserScreen')
-						console.log(res.data.isAdmin)
-					} else {
-						prop.history.push('/')
-					}
+					localStorage.setItem(
+						'user',
+						JSON.stringify({
+							username: res.data.username,
+							_id: res.data._id,
+							isAdmin: res.data.isAdmin,
+						})
+					)
+					prop.history.push('/')
 				}
 			})
 			.catch((error) => {
@@ -60,12 +76,12 @@ function App() {
 	}
 
 	return (
-		<div className="container">
+		<div className='container'>
 			<Router>
 				<Switch>
 					<Route
 						exact
-						path="/Registration"
+						path='/Registration'
 						render={(props) => (
 							<RegistrationScreen
 								{...props}
@@ -78,7 +94,8 @@ function App() {
 						exact
 						path={'/UserScreen'}
 						render={(props) =>
-							isSignedIn && !isAdmin ? (
+							JSON.parse(localStorage.getItem('user')) !== null &&
+							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<UserScreen
 									{...props}
 									logedUser={logedUser}
@@ -86,16 +103,17 @@ function App() {
 									Logout={Logout}
 								/>
 							) : (
-								<Redirect to="/Registration" />
+								<Redirect to='/Registration' />
 							)
 						}
 					/>
 
 					<Route
 						exact
-						path="/AdminScreen"
+						path='/AdminScreen'
 						render={(props) =>
-							isSignedIn && isAdmin ? (
+							JSON.parse(localStorage.getItem('user')) !== null &&
+							JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<AdminScreen
 									{...props}
 									Logout={Logout}
@@ -103,21 +121,23 @@ function App() {
 									logedUser={logedUser}
 								/>
 							) : (
-								<Redirect to="/Registration" />
+								<Redirect to='/Registration' />
 							)
 						}
 					/>
 
 					<Route
 						exact
-						path={'/' || '/UserScreen' || '/Registration' || '/AdminScreen'}
+						path={'/'}
 						render={(props) =>
-							isSignedIn && !isAdmin ? (
-								<Redirect to="/UserScreen" />
-							) : isAdmin && isSignedIn ? (
-								<Redirect to="/AdminScreen" />
+							JSON.parse(localStorage.getItem('user')) !== null &&
+							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
+								<Redirect to='/UserScreen' />
+							) : JSON.parse(localStorage.getItem('user')) !== null &&
+							  JSON.parse(localStorage.getItem('user')).isAdmin ? (
+								<Redirect to='/AdminScreen' />
 							) : (
-								<Redirect to="/Registration" />
+								<Redirect to='/Registration' />
 							)
 						}
 					/>

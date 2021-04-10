@@ -11,7 +11,6 @@ const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
 	})
 
 	useEffect(() => {
-		console.log('useeffect fire')
 		const getcomplaints = async () => {
 			const fetchedComplaints = await fetchcomplaints()
 			setComplaint(fetchedComplaints)
@@ -21,7 +20,15 @@ const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
 	}, [UpdatedComp, logedUser])
 
 	const fetchcomplaints = async () => {
-		const res = await fetch('http://localhost:5000/api/GetAllComplaints')
+		const token = localStorage.getItem('token')
+
+		const res = await fetch('http://localhost:5000/api/GetAllComplaints', {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json',
+				Authorization: `Bearer ${token}`,
+			},
+		})
 		const data = await res.json()
 
 		console.log('dataaa', data)
@@ -58,14 +65,14 @@ const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
 	return (
 		<div>
 			<h1> Admin Screen </h1>
-			<div className="Admbtns">
-				<button onClick={Logout} className="logout">
+			<div className='Admbtns'>
+				<button onClick={Logout} className='logout'>
 					Logout
 				</button>
 				<button
 					style={{ background: 'green' }}
 					onClick={submit}
-					className="logout"
+					className='logout'
 				>
 					Submit
 				</button>

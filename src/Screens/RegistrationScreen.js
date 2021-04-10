@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import Btn from '../components/Btn'
-
+import { Link } from 'react-router-dom'
 const RegistrationScreen = (props) => {
 	const [userName, setUserName] = useState('')
 	const [passowrd, setPassowrd] = useState('')
@@ -19,7 +19,7 @@ const RegistrationScreen = (props) => {
 			pwd: passowrd,
 			isAdmin: admin,
 		}
-		props.Register(signupdata)
+		props.Register(signupdata, props)
 
 		setUserName('')
 		setPassowrd('')
@@ -50,32 +50,32 @@ const RegistrationScreen = (props) => {
 
 	return (
 		<>
-			<form className="login-form">
-				<div className="form-control">
+			<form className='login-form'>
+				<div className='form-control'>
 					{/* <label>task</label> */}
 					<input
-						type="text"
-						placeholder="user name"
+						type='text'
+						placeholder='user name'
 						value={userName}
 						onChange={(e) => setUserName(e.target.value)}
 					/>
 				</div>
-				<div className="form-control">
+				<div className='form-control'>
 					{/* <label>day</label> */}
 					<input
-						type="text"
-						placeholder="passowrd"
+						type='text'
+						placeholder='passowrd'
 						value={passowrd}
 						onChange={(e) => setPassowrd(e.target.value)}
 					/>
 				</div>
 				<div
-					className="form-control form-control-check"
+					className='form-control form-control-check'
 					style={{ display: Log ? 'none' : 'flex' }}
 				>
 					<label> Is Admin ? </label>
 					<input
-						type="checkbox"
+						type='checkbox'
 						checked={admin}
 						value={admin}
 						onChange={(e) => setAdmin(e.currentTarget.checked)}
@@ -91,10 +91,11 @@ const RegistrationScreen = (props) => {
 				</div>
 
 				<div>
-					<a href="/#" onClick={() => setLog(!Log)}>
-						{' '}
-						{Log ? 'Register' : 'LogIn'}{' '}
-					</a>
+					<Link to='/Registration' onClick={() => setLog(!Log)}>
+						{/* {' '} */}
+						{Log ? 'Register' : 'LogIn'}
+						{/* {' '} */}
+					</Link>
 				</div>
 			</form>
 		</>
