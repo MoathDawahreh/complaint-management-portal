@@ -18,7 +18,7 @@ const UserScreen = ({ logedUser, Logout, props }) => {
 					const res = await fetch(
 						'http://localhost:5000/api/complaintsByUser',
 						{
-							method: 'POST',
+							method: 'GET',
 							headers: {
 								'Content-type': 'application/json',
 								Authorization: `Bearer ${token}`,
@@ -31,9 +31,9 @@ const UserScreen = ({ logedUser, Logout, props }) => {
 					return data
 				}
 				const fetchedComplaints = await fetchComplaintsByUserId()
-				if (!fetchedComplaints) {
-					return setComplaint([])
-				}
+				// if (!fetchedComplaints) {
+				// 	return setComplaint([])
+				// }
 
 				setComplaint(fetchedComplaints)
 			}
@@ -106,7 +106,7 @@ const UserScreen = ({ logedUser, Logout, props }) => {
 	return (
 		<>
 			<h1> User Screen </h1>
-			<button onClick={Logout} className="logout">
+			<button onClick={Logout} className='logout'>
 				Logout
 			</button>
 

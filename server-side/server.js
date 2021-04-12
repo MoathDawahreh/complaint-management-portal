@@ -36,7 +36,7 @@ app.get(
 	Middlewares.verifyToken,
 	Handlers.GetComplaints
 )
-app.post(
+app.get(
 	'/api/complaintsByUser',
 	Middlewares.verifyToken,
 	Handlers.GetComplaintsByUser

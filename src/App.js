@@ -26,8 +26,6 @@ function App() {
 					localStorage.setItem(
 						'user',
 						JSON.stringify({
-							username: res.data.username,
-							_id: res.data._id,
 							isAdmin: res.data.isAdmin,
 						})
 					)
@@ -53,8 +51,6 @@ function App() {
 					localStorage.setItem(
 						'user',
 						JSON.stringify({
-							username: res.data.username,
-							_id: res.data._id,
 							isAdmin: res.data.isAdmin,
 						})
 					)
@@ -94,7 +90,7 @@ function App() {
 						exact
 						path={'/UserScreen'}
 						render={(props) =>
-							JSON.parse(localStorage.getItem('user')) !== null &&
+							localStorage.getItem('token') !== null &&
 							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<UserScreen
 									{...props}
@@ -112,7 +108,7 @@ function App() {
 						exact
 						path='/AdminScreen'
 						render={(props) =>
-							JSON.parse(localStorage.getItem('user')) !== null &&
+							localStorage.getItem('token') !== null &&
 							JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<AdminScreen
 									{...props}
@@ -130,10 +126,10 @@ function App() {
 						exact
 						path={'/'}
 						render={(props) =>
-							JSON.parse(localStorage.getItem('user')) !== null &&
+							localStorage.getItem('token') !== null &&
 							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<Redirect to='/UserScreen' />
-							) : JSON.parse(localStorage.getItem('user')) !== null &&
+							) : localStorage.getItem('token') !== null &&
 							  JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<Redirect to='/AdminScreen' />
 							) : (
