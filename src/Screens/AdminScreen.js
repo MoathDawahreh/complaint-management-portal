@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
-const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
+const AdminScreen = ({ Logout, logedUser }) => {
 	const [complaints, setComplaint] = useState([])
 
 	const [UpdatedComp, setUpdatedComp] = useState({
@@ -79,7 +79,6 @@ const AdminScreen = ({ Logout, isAdmin, logedUser }) => {
 			</div>
 			<Complaints
 				complaints={complaints}
-				isAdmin={isAdmin}
 				selectvalue={(value) => setUpdatedComp(value)}
 			/>
 		</div>

@@ -11,8 +11,6 @@ import AdminScreen from './Screens/AdminScreen'
 import axios from 'axios'
 
 function App() {
-	const [isSignedIn, setisSignedIn] = useState(false)
-	const [isAdmin, setIsAdmin] = useState(false)
 	// const isuserlogged = JSON.parse(localStorage.getItem('user'))
 
 	// useEffect(() => {
@@ -37,9 +35,6 @@ function App() {
 						})
 					)
 
-					setisSignedIn(true)
-					setIsAdmin(res.data.isAdmin)
-					// setlogedUser({ username: res.data.username, _id: res.data._id })
 					prop.history.push('/')
 				}
 			})
@@ -50,10 +45,6 @@ function App() {
 			.post('http://localhost:5000/api/login', logindata)
 			.then((res) => {
 				if (res.status === 200) {
-					setIsAdmin(res.data.isAdmin)
-					setisSignedIn(true)
-
-					// setlogedUser({ username: res.data.username, _id: res.data._id })
 					localStorage.setItem('token', res.data.accessToken)
 					localStorage.setItem(
 						'user',
@@ -73,9 +64,6 @@ function App() {
 
 	const Logout = (prop) => {
 		console.log('in logout func')
-		// setlogedUser({ username: '', _id: '' })
-		setisSignedIn(false)
-		setIsAdmin(false)
 		localStorage.clear()
 		window.location.reload()
 	}
@@ -106,12 +94,7 @@ function App() {
 						render={(props) =>
 							localStorage.getItem('token') !== null &&
 							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
-								<UserScreen
-									{...props}
-									// logedUser={logedUser}
-									SignedIn={isSignedIn}
-									Logout={Logout}
-								/>
+								<UserScreen {...props} Logout={Logout} />
 							) : (
 								<Redirect to='/Registration' />
 							)
@@ -124,12 +107,7 @@ function App() {
 						render={(props) =>
 							localStorage.getItem('token') !== null &&
 							JSON.parse(localStorage.getItem('user')).isAdmin ? (
-								<AdminScreen
-									{...props}
-									Logout={Logout}
-									isAdmin={isAdmin}
-									// logedUser={logedUser}
-								/>
+								<AdminScreen {...props} Logout={Logout} />
 							) : (
 								<Redirect to='/Registration' />
 							)
