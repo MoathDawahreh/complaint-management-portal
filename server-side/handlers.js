@@ -31,19 +31,18 @@ module.exports = {
 			let token = jwt.sign(
 				{ username: user.username, _id: user._id, isAdmin: user.isAdmin },
 				process.env.ACCESS_TOKENSECRET,
-				{ expiresIn: 40000 }
+				{ expiresIn: '15m' }
 			)
 			// res.header(field, [value])
 			// req.headers.append('token',token)
 			res.header('token', token)
-
+			console.log(token)
 			res.status(200).send({
 				username: user.username,
 				isAdmin: user.isAdmin,
 				_id: user._id,
 				accessToken: token,
 			})
-			// console.log("login",req.headers)
 		})
 		const end = performance.now()
 		console.log(`Excution time is :${end - start} ms`)
@@ -78,7 +77,7 @@ module.exports = {
 	AddComplaint: function (req, res) {
 		const complaint = req.body.complaint
 		const status = req.body.status
-		const userId = req.body.userId
+		const userId = req.user._id
 
 		Complaints.SaveComplaint(
 			complaint,
@@ -124,5 +123,20 @@ module.exports = {
 		Complaints.deleteAcomplaintById(id, () => {
 			res.status(200).send({ message: 'The Complaint has been deleted!' })
 		})
+	},
+
+	RefreshToken: (req, res) => {
+		let RefreshedToken = jwt.sign(
+			{
+				username: req.user.username,
+				_id: req.user._id,
+				isAdmin: req.user.isAdmin,
+			},
+			process.env.REFRESH_TOKEN_SECRET
+		)
+		console.log('Refresheedd', RefreshedToken)
+		res.header('RefreshedToken', RefreshedToken)
+
+		res.status(200).send({ message: 'The Token has been refreshed!' })
 	},
 }

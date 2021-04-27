@@ -13,8 +13,15 @@ import axios from 'axios'
 function App() {
 	const [isSignedIn, setisSignedIn] = useState(false)
 	const [isAdmin, setIsAdmin] = useState(false)
-	const [logedUser, setlogedUser] = useState({ username: '', _id: '' })
 	// const isuserlogged = JSON.parse(localStorage.getItem('user'))
+
+	// useEffect(() => {
+	// 	setTimeout(() => {
+	// 		console.log('This will run after 5 second!')
+	// 		refreshtoken()
+	// 	}, 5000)
+	// })
+
 	const Register = async (signupdata, prop) => {
 		axios
 			.post('http://localhost:5000/api/Registration', signupdata)
@@ -32,7 +39,7 @@ function App() {
 
 					setisSignedIn(true)
 					setIsAdmin(res.data.isAdmin)
-					setlogedUser({ username: res.data.username, _id: res.data._id })
+					// setlogedUser({ username: res.data.username, _id: res.data._id })
 					prop.history.push('/')
 				}
 			})
@@ -46,7 +53,7 @@ function App() {
 					setIsAdmin(res.data.isAdmin)
 					setisSignedIn(true)
 
-					setlogedUser({ username: res.data.username, _id: res.data._id })
+					// setlogedUser({ username: res.data.username, _id: res.data._id })
 					localStorage.setItem('token', res.data.accessToken)
 					localStorage.setItem(
 						'user',
@@ -65,14 +72,21 @@ function App() {
 	}
 
 	const Logout = (prop) => {
-		setlogedUser({ username: '', _id: '' })
+		console.log('in logout func')
+		// setlogedUser({ username: '', _id: '' })
 		setisSignedIn(false)
 		setIsAdmin(false)
 		localStorage.clear()
+		window.location.reload()
 	}
 
 	return (
-		<div className='container'>
+		<div
+			className='container'
+			// style={{
+			// 	backgroundColor: 'black',
+			// }}
+		>
 			<Router>
 				<Switch>
 					<Route
@@ -94,7 +108,7 @@ function App() {
 							!JSON.parse(localStorage.getItem('user')).isAdmin ? (
 								<UserScreen
 									{...props}
-									logedUser={logedUser}
+									// logedUser={logedUser}
 									SignedIn={isSignedIn}
 									Logout={Logout}
 								/>
@@ -114,7 +128,7 @@ function App() {
 									{...props}
 									Logout={Logout}
 									isAdmin={isAdmin}
-									logedUser={logedUser}
+									// logedUser={logedUser}
 								/>
 							) : (
 								<Redirect to='/Registration' />
@@ -141,21 +155,6 @@ function App() {
 			</Router>
 		</div>
 	)
-
-	// return(
-	// 	 isSignedIn && !isAdmin ?
-	// 	<div className="container">
-	// 		<UserScreen logedUser={logedUser} SignedIn={isSignedIn} Logout={Logout} />
-	// 	</div>
-	//  : isAdmin ?
-	// 	<div className="container">
-	// 		<AdminScreen Logout={Logout} isAdmin={isAdmin} logedUser={logedUser} />
-	// 	</div>
-	//  :
-	// 	<div className="container">
-	// 		<RegistrationScreen Register={Register} logIn={logIn} />
-	// 	</div>
-	// )
 }
 
 export default App

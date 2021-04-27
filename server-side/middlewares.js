@@ -23,16 +23,20 @@ module.exports = {
 	},
 
 	verifyToken: (req, res, next) => {
-		let token = req.headers['authorization'].split(' ')[1]
 
+		let token = req.headers['authorization'].split(' ')[1]
+		console.log('headderrr', req.headers)
 		if (!token) return res.status(403).send({ message: 'Unauthorized!' })
 
 		jwt.verify(token, process.env.ACCESS_TOKENSECRET, (err, decoded) => {
 			if (err) return res.status(401).send({ message: 'Unauthorized!' })
-			req.user = decoded
 
-			next()
+			req.user = decoded
+			console.log('decooded', decoded.iat - decoded.exp)
+
+			
 		})
+		next()
 	},
 
 	// isAdmin: (req, res, next) => {

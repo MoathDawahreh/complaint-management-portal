@@ -5,6 +5,7 @@ var cors = require('cors')
 const fs = require('fs')
 // const path = require('path')
 const https = require('https')
+const middlewares = require('./middlewares')
 require('dotenv').config()
 
 // const { create } = require('domain');
@@ -17,6 +18,8 @@ const app = express()
 const port = process.env.PORT || 5000
 
 app.use(cors())
+app.use(cors({ origin: 'http://localhost:3000' }))
+
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 // app.use(express.static(__dirname + '/../public'));
@@ -29,7 +32,7 @@ app.post(
 	Handlers.Registration
 )
 app.get('/api/AllUsers', Handlers.GetUsers)
-app.post('/api/add-complaint', Handlers.AddComplaint)
+app.post('/api/add-complaint', middlewares.verifyToken, Handlers.AddComplaint)
 app.post('/api/login', Handlers.login)
 app.get(
 	'/api/GetAllComplaints',
@@ -41,6 +44,7 @@ app.get(
 	Middlewares.verifyToken,
 	Handlers.GetComplaintsByUser
 )
+app.get('/api/RefreshToken', Middlewares.verifyToken, Handlers.RefreshToken)
 
 app.post('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
 app.delete('/api/DeleteAcomplaint', Handlers.DeleteAcomplaint)

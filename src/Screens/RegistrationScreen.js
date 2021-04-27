@@ -35,7 +35,6 @@ const RegistrationScreen = (props) => {
 			username: userName,
 			pwd: passowrd,
 		}
-		console.log('history in reg', props.history)
 		props.logIn(logindata, props)
 
 		setUserName('')
