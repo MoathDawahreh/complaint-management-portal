@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import Complaints from '../components/Complaints'
 
-const AdminScreen = ({ Logout, logedUser }) => {
+const AdminScreen = ({ Logout }) => {
 	const [complaints, setComplaint] = useState([])
 
 	const [UpdatedComp, setUpdatedComp] = useState({
@@ -17,7 +17,7 @@ const AdminScreen = ({ Logout, logedUser }) => {
 		}
 
 		getcomplaints()
-	}, [UpdatedComp, logedUser])
+	}, [UpdatedComp])
 
 	const fetchcomplaints = async () => {
 		const token = localStorage.getItem('token')

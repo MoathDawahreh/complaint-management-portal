@@ -2,6 +2,9 @@ import React from 'react'
 import { useState } from 'react'
 import Btn from '../components/Btn'
 import { Link } from 'react-router-dom'
+
+import axios from 'axios'
+
 const RegistrationScreen = (props) => {
 	const [userName, setUserName] = useState('')
 	const [passowrd, setPassowrd] = useState('')
@@ -19,8 +22,23 @@ const RegistrationScreen = (props) => {
 			pwd: passowrd,
 			isAdmin: admin,
 		}
-		props.Register(signupdata, props)
+		axios
+			.post('http://localhost:5000/api/Registration', signupdata)
+			.then((res) => {
+				if (res.status === 200) {
+					console.log('headerrrs', res.headers)
+					console.log('dadtaa', res.data, 'sdf', res)
+					localStorage.setItem('token', res.headers.token)
+					localStorage.setItem(
+						'user',
+						JSON.stringify({
+							isAdmin: res.data.isAdmin,
+						})
+					)
 
+					props.history.push('/')
+				}
+			})
 		setUserName('')
 		setPassowrd('')
 		setAdmin(false)
@@ -35,7 +53,25 @@ const RegistrationScreen = (props) => {
 			username: userName,
 			pwd: passowrd,
 		}
-		props.logIn(logindata, props)
+		axios
+			.post('http://localhost:5000/api/login', logindata)
+			.then((res) => {
+				if (res.status === 200) {
+					localStorage.setItem('token', res.data.accessToken)
+					localStorage.setItem(
+						'user',
+						JSON.stringify({
+							isAdmin: res.data.isAdmin,
+						})
+					)
+					props.history.push('/')
+				}
+			})
+			.catch((error) => {
+				alert('not registeted')
+				console.log(error)
+				return error
+			})
 
 		setUserName('')
 		setPassowrd('')
@@ -91,9 +127,7 @@ const RegistrationScreen = (props) => {
 
 				<div>
 					<Link to='/Registration' onClick={() => setLog(!Log)}>
-						{/* {' '} */}
 						{Log ? 'Register' : 'LogIn'}
-						{/* {' '} */}
 					</Link>
 				</div>
 			</form>
