@@ -1,14 +1,12 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
+import React, { useContext } from 'react'
+import { useEffect } from 'react'
 import Complaints from '../components/Complaints'
-
+import { ComplaintsContext } from '../contexts/ComplaintxContext'
 const AdminScreen = ({ Logout }) => {
-	const [complaints, setComplaint] = useState([])
+	const { complaints, setComplaint, UpdatedComp, setUpdatedComp } =
+		useContext(ComplaintsContext)
 
-	const [UpdatedComp, setUpdatedComp] = useState({
-		_id: '',
-		status: '',
-	})
+	console.log('complaainnssscont', complaints)
 
 	useEffect(() => {
 		const getcomplaints = async () => {
@@ -17,7 +15,7 @@ const AdminScreen = ({ Logout }) => {
 		}
 
 		getcomplaints()
-	}, [UpdatedComp])
+	}, [UpdatedComp, setComplaint])
 
 	const fetchcomplaints = async () => {
 		const token = localStorage.getItem('token')
@@ -32,8 +30,14 @@ const AdminScreen = ({ Logout }) => {
 		const data = await res.json()
 
 		console.log('dataaa', data)
-
-		return data
+		if (res.status === 200) {
+			return data
+		}
+		if (data.message === 'Unauthorized!') {
+			localStorage.clear()
+			window.location.reload()
+			return
+		}
 	}
 
 	const submit = async () => {
@@ -55,6 +59,7 @@ const AdminScreen = ({ Logout }) => {
 				_id: '',
 				status: '',
 			})
+			// window.location.reload()
 
 			alert('The complaint Status has been updated!!')
 		} catch (error) {
@@ -79,7 +84,7 @@ const AdminScreen = ({ Logout }) => {
 			</div>
 			<Complaints
 				complaints={complaints}
-				selectvalue={(value) => setUpdatedComp(value)}
+				// selectvalue={(value) => setUpdatedComp(value)}
 			/>
 		</div>
 	)

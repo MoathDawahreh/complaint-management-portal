@@ -36,8 +36,8 @@ module.exports = {
 			// res.header(field, [value])
 			// req.headers.append('token',token)
 			res.header('token', token)
-			console.log(token)
-			res.status(200).send({
+			// console.log(token)
+			return res.status(200).send({
 				username: user.username,
 				isAdmin: user.isAdmin,
 				_id: user._id,
@@ -94,7 +94,7 @@ module.exports = {
 	GetComplaints: function (req, res) {
 		Complaints.getAllComplaints(function (err, results) {
 			if (err) return res.status(500).send(err)
-			res.send(results)
+			return res.send(results)
 		})
 	},
 

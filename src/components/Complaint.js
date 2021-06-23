@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 
 import { FaTimes } from 'react-icons/fa'
-
-const Complaint = ({ selectvalue, complaint, Delete }) => {
+import { ComplaintsContext } from '../contexts/ComplaintxContext'
+const Complaint = ({ complaint, Delete }) => {
 	// onChange={ (e)=> setUpdatedComp({status:e.target.value,_id:complaint._id}
+
+	const { setUpdatedComp } = useContext(ComplaintsContext)
 
 	return (
 		<>
@@ -28,7 +30,8 @@ const Complaint = ({ selectvalue, complaint, Delete }) => {
 								: 'none',
 						}}
 						onChange={(e) =>
-							selectvalue({ status: e.target.value, _id: complaint._id })
+							// selectvalue({ status: e.target.value, _id: complaint._id })
+							setUpdatedComp({ status: e.target.value, _id: complaint._id })
 						}
 					>
 						<option value='pending '>pending </option>

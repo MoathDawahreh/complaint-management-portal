@@ -23,9 +23,8 @@ module.exports = {
 	},
 
 	verifyToken: (req, res, next) => {
-
 		let token = req.headers['authorization'].split(' ')[1]
-		console.log('headderrr', req.headers)
+		// console.log('headderrr', req.headers)
 		if (!token) return res.status(403).send({ message: 'Unauthorized!' })
 
 		jwt.verify(token, process.env.ACCESS_TOKENSECRET, (err, decoded) => {
@@ -33,8 +32,6 @@ module.exports = {
 
 			req.user = decoded
 			console.log('decooded', decoded.iat - decoded.exp)
-
-			
 		})
 		next()
 	},

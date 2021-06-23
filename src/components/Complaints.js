@@ -1,14 +1,16 @@
 import Complaint from './Complaint'
+import { useContext } from 'react'
+import { ComplaintsContext } from '../contexts/ComplaintxContext'
 
-const Complaints = ({ complaints, isAdmin, selectvalue, Delete }) => {
+const Complaints = ({ Delete }) => {
+	const { complaints } = useContext(ComplaintsContext)
 	return (
 		<>
 			{complaints.map((complaint) => (
 				<Complaint
 					key={complaint._id}
 					complaint={complaint}
-					isAdmin={isAdmin}
-					selectvalue={selectvalue}
+					// selectvalue={selectvalue}
 					Delete={Delete}
 				/>
 			))}

@@ -1,10 +1,10 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import AddComplaint from '../components/AddComplaint '
 import Complaints from '../components/Complaints'
-
+import { ComplaintsContext } from '../contexts/ComplaintxContext'
 const UserScreen = (props) => {
-	const [complaints, setComplaint] = useState([])
+	const { complaints, setComplaint } = useContext(ComplaintsContext)
 
 	// to skip the first render and avoid calling with the inital empty value
 	const [rendered, setRendered] = useState(false)
@@ -50,7 +50,7 @@ const UserScreen = (props) => {
 		if (!rendered) {
 			setRendered(true)
 		}
-	}, [Deletetoggle, rendered, props.history])
+	}, [Deletetoggle, rendered, props.history, setComplaint])
 
 	const AddAcomplaint = async (complaint) => {
 		const newcomplaint = { complaint, status: 'Pending' }
