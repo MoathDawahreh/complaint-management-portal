@@ -11,6 +11,7 @@ const UserScreen = (props) => {
 	const [Deletetoggle, setDeletetoggle] = useState(false)
 
 	useEffect(() => {
+		//hint for me: try to use useecallback or usememo to avoid re re-rendring istead of this funny conditional prevet first render
 		if (rendered) {
 			const getcomplaints = async () => {
 				const fetchComplaintsByUserId = async () => {
