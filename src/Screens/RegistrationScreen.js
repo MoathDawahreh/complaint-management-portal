@@ -14,7 +14,10 @@ const RegistrationScreen = (props) => {
 	const RegisterHandler = (e) => {
 		e.preventDefault()
 		if (!userName || !passowrd) {
-			alert('Please Enter the email and the password!!')
+			document.getElementById('2').innerHTML =
+				'<br> Please Enter the email and the password!!'
+
+			// alert('Please Enter the email and the password!!')
 			return
 		}
 		const signupdata = {
@@ -47,7 +50,9 @@ const RegistrationScreen = (props) => {
 	const LogInHandler = async (e) => {
 		e.preventDefault()
 		if (!userName || !passowrd)
-			return alert('Please Enter the email and the password!!')
+			return (document.getElementById('2').innerHTML =
+				'<br> Please Enter the email and the password!!')
+		//return alert('Please Enter the email and the password!!')
 
 		const logindata = {
 			username: userName,
@@ -68,7 +73,9 @@ const RegistrationScreen = (props) => {
 				}
 			})
 			.catch((error) => {
-				alert('not registeted')
+				//	alert('not registeted')
+				document.getElementById('2').innerHTML =
+					'<br> Not registered! Please SignUp!'
 				console.log(error)
 				return error
 			})
@@ -130,6 +137,7 @@ const RegistrationScreen = (props) => {
 						{Log ? 'Register' : 'LogIn'}
 					</Link>
 				</div>
+				<div className='login-error-message ' id='2'></div>
 			</form>
 		</>
 	)
