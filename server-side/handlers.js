@@ -52,7 +52,7 @@ module.exports = {
 		const username = req.body.username
 		const pwd = bcrypt.hashSync(req.body.pwd, 8)
 		const isAdmin = req.body.isAdmin
-
+		console.log('before saving: ' + username + ' ' + pwd)
 		Users.SaveUser(username, pwd, isAdmin, function (user) {
 			let token = jwt.sign(
 				{ username: user.username, _id: user._id, isAdmin: user.isAdmin },

@@ -49,7 +49,7 @@ app.get('/api/RefreshToken', Middlewares.verifyToken, Handlers.RefreshToken)
 app.post('/api/UpdateComplaintStatus', Handlers.UpdateComplaintStatus)
 app.delete('/api/DeleteAcomplaint', Handlers.DeleteAcomplaint)
 
-const httpsServer = https.createServer(credentials, app)
+// const httpsServer = https.createServer(credentials, app)
 // httpsServer.listen(4000,()=>{console.log("httpsss at 4000")})
 
 app.listen(port, () => {

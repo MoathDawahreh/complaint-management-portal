@@ -9,6 +9,7 @@ module.exports = {
 				.send({ message: 'Username & password are required!' })
 
 		const username = req.body.username
+		console.log('middleweaesr check check' + username)
 		Users.FindUser(username, (err, user) => {
 			if (err) return res.status(500).send({ message: err })
 			if (user)
