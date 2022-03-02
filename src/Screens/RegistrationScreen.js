@@ -10,14 +10,12 @@ const RegistrationScreen = (props) => {
 	const [passowrd, setPassowrd] = useState('')
 	const [admin, setAdmin] = useState(false)
 	const [Log, setLog] = useState(true)
+	const [errorMessage, setError] = useState('')
 
 	const RegisterHandler = (e) => {
 		e.preventDefault()
 		if (!userName || !passowrd) {
-			document.getElementById('2').innerHTML =
-				'<br> Please Enter the email and the password!!'
-
-			// alert('Please Enter the email and the password!!')
+			setError('Please Enter the email and the password to register!')
 			return
 		}
 		const signupdata = {
@@ -42,6 +40,13 @@ const RegistrationScreen = (props) => {
 					props.history.push('/')
 				}
 			})
+			.catch((error) => {
+				//	alert('not registeted')
+				setError('Already exisit, please logIn!')
+
+				//	console.log(error)
+				return error
+			})
 		setUserName('')
 		setPassowrd('')
 		setAdmin(false)
@@ -50,8 +55,8 @@ const RegistrationScreen = (props) => {
 	const LogInHandler = async (e) => {
 		e.preventDefault()
 		if (!userName || !passowrd)
-			return (document.getElementById('2').innerHTML =
-				'<br> Please Enter the email and the password!!')
+			return setError('Please Enter the email and the password to logIn!')
+
 		//return alert('Please Enter the email and the password!!')
 
 		const logindata = {
@@ -74,8 +79,8 @@ const RegistrationScreen = (props) => {
 			})
 			.catch((error) => {
 				//	alert('not registeted')
-				document.getElementById('2').innerHTML =
-					'<br> Not registered! Please SignUp!'
+				setError('Not registered! Please SignUp!!')
+
 				console.log(error)
 				return error
 			})
@@ -84,11 +89,6 @@ const RegistrationScreen = (props) => {
 		setPassowrd('')
 		setAdmin(false)
 	}
-
-	// const handleloginauth = (props) => {
-	// 	console.log('handl auth', props.history)
-	// 	props.history.push('/UserScreen')
-	// }
 
 	return (
 		<>
@@ -112,10 +112,10 @@ const RegistrationScreen = (props) => {
 					/>
 				</div>
 				<div
-					className='form-control form-control-check'
+					className='form-control-check'
 					style={{ display: Log ? 'none' : 'flex' }}
 				>
-					<label> Is Admin ? </label>
+					<label> Is Admin? </label>
 					<input
 						type='checkbox'
 						checked={admin}
@@ -124,20 +124,29 @@ const RegistrationScreen = (props) => {
 					/>
 				</div>
 
-				<div style={{ display: Log ? 'block' : 'none' }}>
+				<div>
+					<Btn
+						text={Log ? 'Login' : 'Register'}
+						onSubmit={Log ? LogInHandler : RegisterHandler}
+					/>{' '}
+				</div>
+
+				{/* <div style={{ display: Log ? 'block' : 'none' }}>
 					<Btn text={'Login'} onSubmit={LogInHandler} />{' '}
 				</div>
 
 				<div style={{ display: Log ? 'none' : 'block' }}>
 					<Btn text={'Register'} onSubmit={RegisterHandler} />{' '}
-				</div>
+				</div> */}
 
 				<div>
 					<Link to='/Registration' onClick={() => setLog(!Log)}>
 						{Log ? 'Register' : 'LogIn'}
 					</Link>
 				</div>
-				<div className='login-error-message ' id='2'></div>
+				<div className='login-error-message ' id='2'>
+					{errorMessage}
+				</div>
 			</form>
 		</>
 	)

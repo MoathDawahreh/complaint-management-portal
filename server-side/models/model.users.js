@@ -43,3 +43,5 @@ exports.getAllusers = function (callback) {
 exports.FindUser = function (username, callback) {
 	Users.findOne({ username: username }).exec(callback)
 }
+
+// module.exports = {SaveUser,}

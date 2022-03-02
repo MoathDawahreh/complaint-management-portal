@@ -18,25 +18,29 @@ const AdminScreen = ({ Logout }) => {
 	}, [UpdatedComp, setComplaint])
 
 	const fetchcomplaints = async () => {
-		const token = localStorage.getItem('token')
+		try {
+			const token = localStorage.getItem('token')
 
-		const res = await fetch('http://localhost:5000/api/GetAllComplaints', {
-			method: 'GET',
-			headers: {
-				'Content-type': 'application/json',
-				Authorization: `Bearer ${token}`,
-			},
-		})
-		const data = await res.json()
+			const res = await fetch('http://localhost:5000/api/GetAllComplaints', {
+				method: 'GET',
+				headers: {
+					'Content-type': 'application/json',
+					Authorization: `Bearer ${token}`,
+				},
+			})
+			const data = await res.json()
 
-		console.log('dataaa', data)
-		if (res.status === 200) {
-			return data
-		}
-		if (data.message === 'Unauthorized!') {
-			localStorage.clear()
-			window.location.reload()
-			return
+			console.log('dataaa', data)
+			if (res.status === 200) {
+				return data
+			}
+			if (data.message === 'Unauthorized!') {
+				localStorage.clear()
+				window.location.reload()
+				return
+			}
+		} catch (error) {
+			console.error(error)
 		}
 	}
 
