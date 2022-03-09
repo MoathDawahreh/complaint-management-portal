@@ -25,7 +25,9 @@ app.use(express.json())
 // app.use(express.static(__dirname + '/../public'));
 // app.use('/static', express.static(path.join(__dirname, '/../public')))
 // app.use(express.static(path.join(__dirname, '/../public')))
-
+app.get('/', (req, res) => {
+	res.send('Whoooohoo')
+})
 app.post(
 	'/api/Registration',
 	Middlewares.checkDuplicateUsernameOrEmail,

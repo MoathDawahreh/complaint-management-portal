@@ -5,6 +5,7 @@ const AddComplaint = ({ onAdd }) => {
 
 	const onSubmit = (e) => {
 		e.preventDefault()
+		console.log(e)
 		if (!text) {
 			alert('Please insert a complmnet')
 			return
@@ -13,20 +14,31 @@ const AddComplaint = ({ onAdd }) => {
 		onAdd(text)
 		setText('')
 	}
+	// const onSubmitt = (e) => {
+	// 	e.preventDefault()
+	// 	if (!text) {
+	// 		alert('Please insert a complmnet')
+	// 		return
+	// 	}
+
+	// 	onAdd(text)
+	// 	setText('')
+	// }
+
 	return (
-		<form className="add-form" onSubmit={onSubmit}>
-			<div className="form-control">
+		<form className='add-form' onSubmit={onSubmit}>
+			<div className='form-control'>
 				<input
-					type="text"
-					placeholder="Add a complaint ..."
+					type='text'
+					placeholder='Add a complaint ...'
 					value={text}
 					onChange={(e) => setText(e.target.value)}
 				/>
 			</div>
 
-			<div className="form-control form-control-check"></div>
+			<div className='form-control form-control-check'></div>
 
-			<input className="btn btn-block" type="submit" value="Add" />
+			<input className='btn btn-block' type='submit' value='Add' />
 		</form>
 	)
 }
