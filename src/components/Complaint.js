@@ -8,7 +8,7 @@ const Complaint = ({ complaint, Delete }) => {
 	const { setUpdatedComp } = useContext(ComplaintsContext)
 
 	return (
-		<>
+		<React.Fragment>
 			<div className='compliment'>
 				<h3>
 					{complaint.complaint}
@@ -42,7 +42,7 @@ const Complaint = ({ complaint, Delete }) => {
 
 				<p>{complaint.status}</p>
 			</div>
-		</>
+		</React.Fragment>
 	)
 }
 

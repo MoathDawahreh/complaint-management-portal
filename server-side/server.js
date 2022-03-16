@@ -3,8 +3,8 @@ const Middlewares = require('./middlewares')
 const express = require('express')
 var cors = require('cors')
 const fs = require('fs')
-// const path = require('path')
-const https = require('https')
+const path = require('path')
+// const https = require('https')
 const middlewares = require('./middlewares')
 require('dotenv').config()
 
@@ -22,11 +22,13 @@ app.use(cors({ origin: 'http://localhost:3000' }))
 
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
-// app.use(express.static(__dirname + '/../public'));
-// app.use('/static', express.static(path.join(__dirname, '/../public')))
-// app.use(express.static(path.join(__dirname, '/../public')))
+
+app.use(express.static(path.join(__dirname, '../build')))
+
 app.get('/', (req, res) => {
-	res.send('Whoooohoo')
+	res.sendFile(path.join(__dirname, '../build', 'index.html'))
+
+	// res.send('Whoooohoo')
 })
 app.post(
 	'/api/Registration',
