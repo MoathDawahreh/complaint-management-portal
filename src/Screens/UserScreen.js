@@ -5,91 +5,82 @@ import Complaints from '../components/Complaints'
 import { ComplaintsContext } from '../contexts/ComplaintxContext'
 const UserScreen = (props) => {
 	const { complaints, setComplaint } = useContext(ComplaintsContext)
+	// const { complaints } = useContext(ComplaintsContext)
 
 	// to skip the first render and avoid calling with the inital empty value
-	const [rendered, setRendered] = useState(false)
+	// const [rendered, setRendered] = useState(false)
 	const [Deletetoggle, setDeletetoggle] = useState(false)
+	// const [errorMessage, setError] = useState('')
 
-	useEffect(() => {
-		//hint for me: try to use useecallback or usememo to avoid re re-rendring istead of this funny conditional prevet first render
-		if (rendered) {
-			const getcomplaints = async () => {
-				const fetchComplaintsByUserId = async () => {
-					const token = localStorage.getItem('token')
+	// useEffect(() => {
+	// 	const getcomplaints = async () => {
+	// 		const fetchComplaintsByUserId = async () => {
+	// 			const token = localStorage.getItem('token')
 
-					const res = await fetch(
-						'http://localhost:5000/api/complaintsByUser',
-						{
-							method: 'GET',
-							headers: {
-								'Content-type': 'application/json',
-								Authorization: `Bearer ${token}`,
-							},
-							// body: JSON.stringify(userId),
-						}
-					)
-					const data = await res.json()
-					if (data.message === 'Unauthorized!') {
-						localStorage.clear()
-						props.history.push('/')
-					}
+	// 			const res = await fetch('http://localhost:5000/api/complaintsByUser', {
+	// 				method: 'GET',
+	// 				headers: {
+	// 					'Content-type': 'application/json',
+	// 					Authorization: `Bearer ${token}`,
+	// 				},
+	// 				// body: JSON.stringify(userId),
+	// 			})
+	// 			const data = await res.json()
+	// 			if (data.message === 'Unauthorized!') {
+	// 				localStorage.clear()
+	// 				props.history.push('/')
+	// 			}
 
-					return data
-				}
-				const fetchedComplaints = await fetchComplaintsByUserId()
+	// 			return data
+	// 		}
+	// 		const fetchedComplaints = await fetchComplaintsByUserId()
 
-				setComplaint(fetchedComplaints)
-			}
-			getcomplaints()
+	// 		setComplaint(fetchedComplaints)
+	// 	}
+	// 	getcomplaints()
+	// 	return () => {
+	// 		// cleanup
+	// 		setError('')
+	// 	}
+	// }, [Deletetoggle, props.history, setComplaint])
 
-			// return () => {
-			// 	console.log("cleanup");
-			// 	clearInterval(getcomplaints);
-			// }
-		}
+	// const AddAcomplaint = async (complaint) => {
+	// 	const newcomplaint = { complaint, status: 'Pending' }
+	// 	try {
+	// 		const res = await fetch('http://localhost:5000/api/add-complaint', {
+	// 			method: 'POST',
+	// 			headers: {
+	// 				'Content-type': 'application/json',
+	// 				Authorization: `Bearer ${localStorage.getItem('token')}`,
+	// 			},
+	// 			body: JSON.stringify(newcomplaint),
+	// 		})
 
-		if (!rendered) {
-			setRendered(true)
-		}
-	}, [Deletetoggle, rendered, props.history, setComplaint])
+	// 		const data = await res.json()
+	// 		console.log('res dataaa', data)
 
-	const AddAcomplaint = async (complaint) => {
-		const newcomplaint = { complaint, status: 'Pending' }
-		try {
-			const res = await fetch('http://localhost:5000/api/add-complaint', {
-				method: 'POST',
-				headers: {
-					'Content-type': 'application/json',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
-				body: JSON.stringify(newcomplaint),
-			})
+	// 		setComplaint([...complaints, data])
+	// 	} catch (error) {
+	// 		console.error(error)
+	// 	}
+	// }
 
-			const data = await res.json()
-			console.log('res dataaa', data)
-
-			setComplaint([...complaints, data])
-		} catch (error) {
-			console.error(error)
-		}
-	}
-
-	const DeleteComplaint = async (id) => {
-		try {
-			const res = await fetch('http://localhost:5000/api/DeleteAcomplaint', {
-				method: 'DELETE',
-				headers: {
-					'Content-type': 'application/json',
-				},
-				body: JSON.stringify({ id: id }),
-			})
-			const response = await res.json()
-			alert(response.message)
-			setDeletetoggle(!Deletetoggle)
-		} catch (error) {
-			throw error
-		}
-	}
+	// const DeleteComplaint = async (id) => {
+	// 	try {
+	// 		const res = await fetch('http://localhost:5000/api/DeleteAcomplaint', {
+	// 			method: 'DELETE',
+	// 			headers: {
+	// 				'Content-type': 'application/json',
+	// 			},
+	// 			body: JSON.stringify({ id: id }),
+	// 		})
+	// 		const response = await res.json()
+	// 		alert(response.message)
+	// 		setDeletetoggle(!Deletetoggle)
+	// 	} catch (error) {
+	// 		throw error
+	// 	}
+	// }
 
 	return (
 		<>
@@ -98,8 +89,18 @@ const UserScreen = (props) => {
 				Logout
 			</button>
 
-			<AddComplaint onAdd={AddAcomplaint} />
-			<Complaints complaints={complaints} Delete={DeleteComplaint} />
+			<AddComplaint
+			//  onAdd={AddAcomplaint}
+			// setEr={(err) => setError(err)}
+			/>
+			<Complaints
+				{...props}
+				// complaints={complaints}
+				// Delete={DeleteComplaint}
+			/>
+			{/* <div className='error-message ' id='2'>
+				{errorMessage}
+			</div> */}
 		</>
 	)
 }

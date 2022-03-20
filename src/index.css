@@ -94,7 +94,7 @@ body {
 .form-control {
 	margin: 20px 0;
 }
-.login-error-message {
+.error-message {
 	color: rgb(243, 4, 4);
 	/* padding: 10px 20px; */
 	border-radius: 5px;

@@ -144,7 +144,7 @@ const RegistrationScreen = (props) => {
 						{Log ? 'Register' : 'LogIn'}
 					</Link>
 				</div>
-				<div className='login-error-message ' id='2'>
+				<div className='error-message ' id='2'>
 					{errorMessage}
 				</div>
 			</form>
