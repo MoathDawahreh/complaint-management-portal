@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useContext } from 'react'
 import { ComplaintsContext } from '../contexts/ComplaintxContext'
 
-const AddComplaint = ({ onAdd, setEr }) => {
+const AddComplaint = () => {
 	const [text, setText] = useState('')
 	const { complaints, setComplaint } = useContext(ComplaintsContext)
 	const [errorMessage, setError] = useState('')
@@ -18,16 +18,7 @@ const AddComplaint = ({ onAdd, setEr }) => {
 			setText('')
 		}
 	}
-	// const onSubmitt = (e) => {
-	// 	e.preventDefault()
-	// 	if (!text) {
-	// 		alert('Please insert a complmnet')
-	// 		return
-	// 	}
 
-	// 	onAdd(text)
-	// 	setText('')
-	// }
 	const AddAcomplaint = async (complaint) => {
 		const newcomplaint = { complaint, status: 'Pending' }
 		try {

@@ -20,13 +20,11 @@ module.exports = {
 			if (user === null)
 				return res
 					.status(404)
-					.send({ message: 'incorrect username or password.' })
+					.send({ message: 'User does not exisit; please signU up!.' })
 
 			const passwordIsValid = bcrypt.compareSync(pwd, user.pwd)
 			if (!passwordIsValid || !user)
-				return res
-					.status(404)
-					.send({ message: 'incorrect username or password.' })
+				return res.status(404).send({ message: 'incorrect password.' })
 
 			let token = jwt.sign(
 				{ username: user.username, _id: user._id, isAdmin: user.isAdmin },
@@ -52,7 +50,6 @@ module.exports = {
 		const username = req.body.username
 		const pwd = bcrypt.hashSync(req.body.pwd, 8)
 		const isAdmin = req.body.isAdmin
-		console.log('before saving: ' + username + ' ' + pwd)
 		Users.SaveUser(username, pwd, isAdmin, function (user) {
 			let token = jwt.sign(
 				{ username: user.username, _id: user._id, isAdmin: user.isAdmin },
@@ -63,14 +60,12 @@ module.exports = {
 			res.header('token', token)
 
 			res.status(200).send(user)
-			console.log('saaaaaaaved', user)
 		})
 	},
 
 	GetUsers: function (req, res) {
 		Users.getAllusers(function (results) {
 			res.send(results)
-			console.log(results)
 		})
 	},
 
@@ -86,7 +81,6 @@ module.exports = {
 			function (error, results) {
 				if (error) return res.send(error)
 				res.send(results)
-				console.log('Addd complaint handler results', results)
 			}
 		)
 	},
@@ -104,8 +98,6 @@ module.exports = {
 		Complaints.getComplaintsByUserId(userId, function (err, results) {
 			if (err) return res.status(500).send(err)
 			res.status(200).send(results)
-
-			console.log(results)
 		})
 	},
 
@@ -115,7 +107,6 @@ module.exports = {
 
 		Complaints.UpdateComplaintStatusById(id, st, function (results) {
 			res.send(results)
-			console.log(results)
 		})
 	},
 	DeleteAcomplaint: (req, res) => {
