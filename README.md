@@ -1,4 +1,6 @@
 
+By Moath Thawahreh
+
 ### `Getting Started!`
 
 Download the dependencies using 'npm i' - Make sure to download the server-side dependencies as well inside the server folder-.

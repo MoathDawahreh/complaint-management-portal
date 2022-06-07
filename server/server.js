@@ -27,7 +27,6 @@ app.use(express.static(path.join(__dirname, '../build')))
 
 app.get(['/', '/UserScreen', '/AdminScreen*', '/Registration'], (req, res) => {
 	res.sendFile(path.join(__dirname, '../build', 'index.html'))
-
 	// res.send('Whoooohoo')
 })
 app.post(
