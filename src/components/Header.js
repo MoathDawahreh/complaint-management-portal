@@ -2,11 +2,11 @@ import Btn from './Btn'
 
 const Header = (props) => {
 	return (
-		<header className="header">
+		<header className='header'>
 			<Btn
-				color="green"
+				color='green'
 				onSubmit={props.ShowComplaints}
-				text="Show my complaints"
+				text='Show my complaints'
 			/>
 		</header>
 	)
