@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import Btn from '../components/Btn'
-import { Link } from 'react-router-dom'
+import { Link,useNavigate } from 'react-router-dom'
 
 import axios from 'axios'
 
@@ -11,6 +11,7 @@ const RegistrationScreen = (props) => {
 	const [admin, setAdmin] = useState(false)
 	const [Log, setLog] = useState(true)
 	const [errorMessage, setError] = useState('')
+	const navigate = useNavigate();
 
 	const RegisterHandler = (e) => {
 		e.preventDefault()
@@ -37,7 +38,7 @@ const RegistrationScreen = (props) => {
 						})
 					)
 
-					props.history.push('/')
+					navigate('/')
 				}
 			})
 			.catch((error) => {
@@ -74,7 +75,7 @@ const RegistrationScreen = (props) => {
 							isAdmin: res.data.isAdmin,
 						})
 					)
-					props.history.push('/')
+					navigate('/')
 				}
 			})
 			.catch((error) => {
