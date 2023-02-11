@@ -3,9 +3,9 @@
 import { useState, React } from 'react'
 import {
 	BrowserRouter as Router,
-	Switch,
+	Routes ,
 	Route,
-	Redirect,
+	Navigate,
 } from 'react-router-dom'
 import RegistrationScreen from './Screens/RegistrationScreen'
 import UserScreen from './Screens/UserScreen'
@@ -48,26 +48,26 @@ function App() {
 	}
 
 	return (
-		<div className='container'>
+		<div className='container'>  
 			<ComplaintsContext.Provider
 				value={{ complaints, setUpdatedComp, setComplaint, UpdatedComp }}
 			>
 				<Router>
-					<Switch>
+					<Routes >
 						<Route
 							exact
 							path='/Registration'
-							render={(props) => <RegistrationScreen {...props} />}
+							element={ <RegistrationScreen  />}
 						/>
 						<Route
 							exact
 							path={'/UserScreen'}
-							render={(props) =>
+							element={ 
 								localStorage.getItem('token') !== null &&
 								!JSON.parse(localStorage.getItem('user')).isAdmin ? (
-									<UserScreen {...props} Logout={Logout} />
+									<UserScreen   Logout={Logout} />
 								) : (
-									<Redirect to='/Registration' />
+									<Navigate to='/Registration' />
 								)
 							}
 						/>
@@ -75,14 +75,14 @@ function App() {
 						<Route
 							exact
 							path='/AdminScreen'
-							render={(props) =>
+							element={ 
 								localStorage.getItem('token') !== null &&
 								JSON.parse(localStorage.getItem('user')).isAdmin ? (
 									// <UpdatedComplaintProvider>
-									<AdminScreen {...props} Logout={Logout} />
+									<AdminScreen   Logout={Logout} />
 								) : (
 									// </UpdatedComplaintProvider>
-									<Redirect to='/Registration' />
+									<Navigate to='/Registration' />
 								)
 							}
 						/>
@@ -90,19 +90,19 @@ function App() {
 						<Route
 							exact
 							path={'/'}
-							render={(props) =>
+							element={ 
 								localStorage.getItem('token') !== null &&
 								!JSON.parse(localStorage.getItem('user')).isAdmin ? (
-									<Redirect to='/UserScreen' />
+									<Navigate to='/UserScreen' />
 								) : localStorage.getItem('token') !== null &&
 								  JSON.parse(localStorage.getItem('user')).isAdmin ? (
-									<Redirect to='/AdminScreen' />
+									<Navigate to='/AdminScreen' />
 								) : (
-									<Redirect to='/Registration' />
+									<Navigate to='/Registration' />
 								)
 							}
 						/>
-					</Switch>
+					</Routes >
 				</Router>
 			</ComplaintsContext.Provider>
 		</div>
